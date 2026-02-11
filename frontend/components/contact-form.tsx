@@ -1,0 +1,343 @@
+'use client'
+
+import React from "react"
+
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
+import { Card } from '@/components/ui/card'
+import { CheckCircle2 } from 'lucide-react'
+
+type FormStep = 'building' | 'request' | 'identity' | 'confirmation'
+
+interface FormData {
+  residenceName: string
+  address: string
+  apartments: string
+  situation: string
+  motif: string
+  description: string
+  role: string
+  name: string
+  phone: string
+  email: string
+}
+
+export function ContactForm() {
+  const [step, setStep] = useState<FormStep>('building')
+  const [formData, setFormData] = useState<FormData>({
+    residenceName: '',
+    address: '',
+    apartments: '',
+    situation: '',
+    motif: '',
+    description: '',
+    role: '',
+    name: '',
+    phone: '',
+    email: '',
+  })
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }))
+  }
+
+  const handleNextStep = () => {
+    switch (step) {
+      case 'building':
+        if (formData.residenceName && formData.address && formData.apartments) {
+          setStep('request')
+        }
+        break
+      case 'request':
+        if (formData.motif && formData.description) {
+          setStep('identity')
+        }
+        break
+      case 'identity':
+        if (formData.role && formData.name && formData.phone && formData.email) {
+          setStep('confirmation')
+        }
+        break
+    }
+  }
+
+  const handlePrevStep = () => {
+    if (step === 'request') setStep('building')
+    else if (step === 'identity') setStep('request')
+  }
+
+  return (
+    <section id="contact" className="py-20 px-6 bg-white">
+      <div className="max-w-2xl mx-auto">
+        <h2 className="font-heading font-bold text-4xl text-foreground text-center mb-4">
+          Obtenez votre devis personnalisé
+        </h2>
+        <p className="text-center text-muted-foreground mb-12">
+          Remplissez le formulaire ci-dessous pour recevoir une proposition adaptée à votre résidence.
+        </p>
+
+        {/* Step Indicator */}
+        <div className="flex justify-between mb-10">
+          {(['building', 'request', 'identity'] as const).map((s, index) => (
+            <div key={s} className="flex items-center">
+              <div
+                className={`w-10 h-10 rounded-full flex items-center justify-center font-heading font-bold transition-all duration-200 ${
+                  step === s || (step === 'confirmation' && index < 3)
+                    ? 'bg-primary text-white'
+                    : 'bg-border text-muted-foreground'
+                }`}
+              >
+                {index + 1}
+              </div>
+              {index < 2 && (
+                <div
+                  className={`w-12 h-1 mx-2 ${
+                    step === 'confirmation' || (step !== 'building' && step !== 'request') || step === 'identity'
+                      ? 'bg-primary'
+                      : 'bg-border'
+                  }`}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Form Content */}
+        <Card className="p-8 bg-background border border-border">
+          {/* Step 1: Building Information */}
+          {step === 'building' && (
+            <div className="space-y-6">
+              <h3 className="font-heading font-semibold text-xl text-foreground mb-6">
+                Étape 1 — Informations immeuble
+              </h3>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Nom de la résidence
+                </label>
+                <Input
+                  type="text"
+                  name="residenceName"
+                  value={formData.residenceName}
+                  onChange={handleChange}
+                  placeholder="Ex: Résidence Soleil"
+                  className="rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Adresse
+                </label>
+                <Input
+                  type="text"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  placeholder="Ex: 123 Rue de la Paix, Paris 16ème"
+                  className="rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Nombre d'appartements
+                </label>
+                <Input
+                  type="number"
+                  name="apartments"
+                  value={formData.apartments}
+                  onChange={handleChange}
+                  placeholder="Ex: 24"
+                  className="rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Situation actuelle
+                </label>
+                <select
+                  name="situation"
+                  value={formData.situation}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="">Sélectionnez une option</option>
+                  <option value="gestion">Déjà en gestion externe</option>
+                  <option value="auto">Auto-gestion</option>
+                  <option value="change">Changement de syndic</option>
+                  <option value="autres">Autres</option>
+                </select>
+              </div>
+            </div>
+          )}
+
+          {/* Step 2: Request Nature */}
+          {step === 'request' && (
+            <div className="space-y-6">
+              <h3 className="font-heading font-semibold text-xl text-foreground mb-6">
+                Étape 2 — Nature de la demande
+              </h3>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Motif principal
+                </label>
+                <select
+                  name="motif"
+                  value={formData.motif}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="">Sélectionnez un motif</option>
+                  <option value="maintenance">Améliorer la maintenance</option>
+                  <option value="transparency">Augmenter la transparence</option>
+                  <option value="recovery">Améliorer le recouvrement</option>
+                  <option value="supervision">Superviser le terrain</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Description détaillée
+                </label>
+                <Textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  placeholder="Décrivez vos besoins spécifiques..."
+                  className="rounded-lg min-h-24"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Step 3: Identity */}
+          {step === 'identity' && (
+            <div className="space-y-6">
+              <h3 className="font-heading font-semibold text-xl text-foreground mb-6">
+                Étape 3 — Identité
+              </h3>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Rôle
+                </label>
+                <select
+                  name="role"
+                  value={formData.role}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="">Sélectionnez votre rôle</option>
+                  <option value="president">Président du syndic</option>
+                  <option value="tresorier">Trésorier</option>
+                  <option value="resident">Résident</option>
+                  <option value="promoter">Promoteur immobilier</option>
+                  <option value="other">Autre</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Nom complet
+                </label>
+                <Input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Votre nom complet"
+                  className="rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Téléphone
+                </label>
+                <Input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="06 12 34 56 78"
+                  className="rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Email
+                </label>
+                <Input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="votre@email.com"
+                  className="rounded-lg"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Step 4: Confirmation */}
+          {step === 'confirmation' && (
+            <div className="text-center py-12">
+              <CheckCircle2 className="w-16 h-16 text-primary mx-auto mb-6" />
+              <h3 className="font-heading font-semibold text-2xl text-foreground mb-4">
+                Votre demande est bien reçue
+              </h3>
+              <p className="text-muted-foreground text-lg mb-8">
+                Notre équipe vous contactera sous 24 heures pour discuter de votre projet.
+              </p>
+              <p className="text-muted-foreground mb-8">
+                En attendant, vous pouvez réserver un créneau pour une consultation directe.
+              </p>
+              <Button
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold px-8"
+                onClick={() => {
+                  setStep('building')
+                  setFormData({
+                    residenceName: '',
+                    address: '',
+                    apartments: '',
+                    situation: '',
+                    motif: '',
+                    description: '',
+                    role: '',
+                    name: '',
+                    phone: '',
+                    email: '',
+                  })
+                }}
+              >
+                Nouveau devis
+              </Button>
+            </div>
+          )}
+
+          {/* Navigation Buttons */}
+          {step !== 'confirmation' && (
+            <div className="flex gap-4 justify-between mt-8 pt-8 border-t border-border">
+              <Button
+                variant="outline"
+                onClick={handlePrevStep}
+                disabled={step === 'building'}
+                className="rounded-lg bg-transparent"
+              >
+                Précédent
+              </Button>
+              <Button
+                onClick={handleNextStep}
+                className="bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold"
+              >
+                {step === 'identity' ? 'Valider' : 'Suivant'}
+              </Button>
+            </div>
+          )}
+        </Card>
+      </div>
+    </section>
+  )
+}
