@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Card } from '@/components/ui/card'
-import { CheckCircle2 } from 'lucide-react'
+import { CheckCircle2, AlertCircle, Loader2 } from 'lucide-react'
+import { apiClient } from '@/lib/api-client'
 
 type FormStep = 'building' | 'request' | 'identity' | 'confirmation'
 
@@ -38,6 +39,8 @@ export function ContactForm() {
     phone: '',
     email: '',
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -45,6 +48,46 @@ export function ContactForm() {
       ...prev,
       [name]: value,
     }))
+    // Clear error when user starts typing
+    if (error) setError('')
+  }
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true)
+    setError('')
+
+    try {
+      // Submit contact form to backend
+      const formDataBackend = {
+        building: {
+          name: formData.residenceName,
+          address: formData.address,
+          city: formData.address.split(',').pop()?.trim() || 'Paris',
+          units: formData.apartments,
+          description: `Situation: ${formData.situation}, Motif: ${formData.motif}`
+        },
+        request: {
+          subject: `Demande de devis - ${formData.residenceName}`,
+          description: formData.description,
+          priority: 'MEDIUM'
+        },
+        identity: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          role: formData.role
+        }
+      }
+
+      await apiClient.submitContactForm(formDataBackend)
+
+      setStep('confirmation')
+    } catch (err: any) {
+      console.error('Form submission error:', err)
+      setError(err.message || 'Une erreur est survenue lors de l\'envoi de votre demande. Veuillez réessayer.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleNextStep = () => {
@@ -61,7 +104,7 @@ export function ContactForm() {
         break
       case 'identity':
         if (formData.role && formData.name && formData.phone && formData.email) {
-          setStep('confirmation')
+          handleSubmit()
         }
         break
     }
@@ -98,7 +141,7 @@ export function ContactForm() {
               {index < 2 && (
                 <div
                   className={`w-12 h-1 mx-2 ${
-                    step === 'confirmation' || (step !== 'building' && step !== 'request') || step === 'identity'
+                    step === 'confirmation' || step === 'identity' || (step !== 'building' && step !== 'request')
                       ? 'bg-primary'
                       : 'bg-border'
                   }`}
@@ -110,6 +153,14 @@ export function ContactForm() {
 
         {/* Form Content */}
         <Card className="p-8 bg-background border border-border">
+          {/* Error Display */}
+          {error && (
+            <div className="mb-6 flex items-center gap-3 p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive">
+              <AlertCircle className="w-5 h-5 flex-shrink-0" />
+              <p className="text-sm">{error}</p>
+            </div>
+          )}
+
           {/* Step 1: Building Information */}
           {step === 'building' && (
             <div className="space-y-6">
@@ -330,9 +381,17 @@ export function ContactForm() {
               </Button>
               <Button
                 onClick={handleNextStep}
+                disabled={isSubmitting}
                 className="bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold"
               >
-                {step === 'identity' ? 'Valider' : 'Suivant'}
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    {step === 'identity' ? 'Envoi en cours...' : 'Suivant'}
+                  </>
+                ) : (
+                  step === 'identity' ? 'Valider' : 'Suivant'
+                )}
               </Button>
             </div>
           )}

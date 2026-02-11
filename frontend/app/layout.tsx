@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import { Space_Grotesk, Inter } from 'next/font/google'
 
 import './globals.css'
+import { AuthProvider } from '@/contexts/auth-context'
 
 const spaceGrotesk = Space_Grotesk({ 
   subsets: ['latin'],
@@ -34,7 +35,9 @@ export default function RootLayout({
   return (
     <html lang="fr" style={{ colorScheme: 'light' }}>
       <body className={`${spaceGrotesk.variable} ${inter.variable} font-sans antialiased bg-background text-foreground`}>
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   )
