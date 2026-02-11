@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Mail, Phone, MapPin } from 'lucide-react'
+import { Logo } from '@/components/logo'
 
 export function Footer() {
   return (
@@ -8,13 +9,10 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Company Info */}
           <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-white font-heading font-bold text-lg">M</span>
-              </div>
-              <span className="font-heading font-bold text-lg text-background">Marabouts</span>
+            <div className="mb-6">
+              <Logo variant="dark" />
             </div>
-            <p className="text-background/70 text-sm leading-relaxed mb-4">
+            <p className="text-background/70 text-sm leading-relaxed mb-6">
               La gestion de syndic professionnelle, transparente et réactive.
             </p>
             <div className="space-y-3">

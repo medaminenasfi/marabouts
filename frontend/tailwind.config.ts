@@ -28,6 +28,7 @@ const config: Config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          dark: 'hsl(var(--primary-dark))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
@@ -40,6 +41,7 @@ const config: Config = {
         accent: {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
+          dark: 'hsl(var(--accent-dark))',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',

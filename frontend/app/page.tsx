@@ -6,6 +6,7 @@ import { ServicesSection } from '@/components/services-section'
 import { ForWhoSection } from '@/components/for-who-section'
 import { ProcessSection } from '@/components/process-section'
 import { ResidencesSection } from '@/components/residences-section'
+import { KpiSection } from '@/components/kpi-section'
 import { CtaSection } from '@/components/cta-section'
 import { ContactForm } from '@/components/contact-form'
 import { Footer } from '@/components/footer'
@@ -21,6 +22,7 @@ export default function Page() {
       <ForWhoSection />
       <ProcessSection />
       <ResidencesSection />
+      <KpiSection />
       <CtaSection />
       <ContactForm />
       <Footer />

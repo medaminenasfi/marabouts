@@ -6,9 +6,26 @@ import { CheckCircle2 } from 'lucide-react'
 
 export function Hero() {
   return (
-    <section className="relative min-h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 pt-20 pb-20">
-      {/* Background elements */}
+    <section className="relative min-h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden pt-20 pb-20">
+      {/* Background with image overlay */}
       <div className="absolute inset-0 overflow-hidden">
+        <div className="relative w-full h-full">
+          <img 
+            src="/assests/hero-building.jpg"
+            alt="Background building"
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              // Fallback to gradient background if image fails
+              const target = e.target as HTMLImageElement;
+              target.style.display = 'none';
+              const parent = target.parentElement;
+              if (parent) {
+                parent.className += ' bg-gradient-to-br from-background via-background to-primary/5';
+              }
+            }}
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-white/92 via-white/95 to-primary/8" />
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/8 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl" />
       </div>

@@ -9,33 +9,32 @@ const residences = [
     name: 'Residence Soleil',
     location: 'Paris 16ème',
     units: 24,
+    image: '/assests/residence-1.jpg',
   },
   {
     name: 'Parc Verdure',
     location: 'Boulogne-Billancourt',
     units: 32,
+    image: '/assests/residence-2.jpg',
   },
   {
     name: 'Les Terrasses',
     location: 'Neuilly-sur-Seine',
     units: 18,
+    image: '/assests/residence-3.jpg',
   },
   {
     name: 'Villa Prestige',
     location: 'Saint-Cloud',
     units: 28,
+    image: '/assests/residence-1.jpg',
   },
   {
     name: 'Residence Lumière',
     location: 'Versailles',
     units: 22,
+    image: '/assests/residence-2.jpg',
   },
-]
-
-const kpis = [
-  { number: '15', label: 'Résidences gérées' },
-  { number: '152', label: 'Tickets de maintenance traités' },
-  { number: '36%', label: 'Taux de recouvrement' },
 ]
 
 export function ResidencesSection() {
@@ -87,23 +86,28 @@ export function ResidencesSection() {
             {residences.map((residence, index) => (
               <Card
                 key={index}
-                className="flex-shrink-0 w-80 p-6 bg-gradient-to-br from-white to-primary/5 border border-border hover:shadow-lg transition-all duration-200"
+                className="flex-shrink-0 w-80 overflow-hidden bg-white border border-border hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group"
               >
-                <div className="w-full h-40 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg mb-4 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-4xl font-heading font-bold text-primary/30">🏢</div>
-                  </div>
+                <div className="w-full h-40 overflow-hidden">
+                  <img 
+                    src={residence.image}
+                    alt={residence.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
                 </div>
-                <h3 className="font-heading font-semibold text-lg text-foreground mb-2">
-                  {residence.name}
-                </h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  📍 {residence.location}
-                </p>
-                <div className="pt-4 border-t border-border">
-                  <p className="text-sm font-medium text-foreground">
-                    {residence.units} appartements
+                <div className="p-6">
+                  <h3 className="font-heading font-semibold text-lg text-foreground mb-2">
+                    {residence.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-4 flex items-center">
+                    <span className="mr-2">📍</span>
+                    {residence.location}
                   </p>
+                  <div className="pt-4 border-t border-border">
+                    <p className="text-sm font-medium text-foreground">
+                      {residence.units} appartements
+                    </p>
+                  </div>
                 </div>
               </Card>
             ))}
@@ -112,30 +116,16 @@ export function ResidencesSection() {
           {/* Navigation buttons */}
           <button
             onClick={() => scroll('left')}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 p-2 bg-white border border-border rounded-full hover:bg-primary hover:text-white transition-all duration-200 z-10"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 p-3 bg-white/90 backdrop-blur-sm border border-border rounded-full hover:bg-primary hover:text-white hover:scale-110 transition-all duration-300 shadow-lg z-10"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={() => scroll('right')}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 p-2 bg-white border border-border rounded-full hover:bg-primary hover:text-white transition-all duration-200 z-10"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 p-3 bg-white/90 backdrop-blur-sm border border-border rounded-full hover:bg-primary hover:text-white hover:scale-110 transition-all duration-300 shadow-lg z-10"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
-        </div>
-
-        {/* KPI Strip */}
-        <div className="grid grid-cols-3 gap-6 bg-gradient-to-r from-primary/10 via-transparent to-accent/10 rounded-xl p-8 border border-border">
-          {kpis.map((kpi, index) => (
-            <div key={index} className="text-center">
-              <div className="font-heading font-bold text-4xl md:text-5xl text-primary mb-2">
-                {kpi.number}
-              </div>
-              <p className="text-sm md:text-base text-muted-foreground">
-                {kpi.label}
-              </p>
-            </div>
-          ))}
         </div>
       </div>
     </section>
