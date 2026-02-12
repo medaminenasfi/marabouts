@@ -4,8 +4,9 @@
   "description": "Marabouts Backend API",
   "main": "dist/app.js",
   "scripts": {
-    "start": "node src/server-final.js",
-    "dev": "node src/server-final.js",
+    "start": "node dist/server.js",
+    "dev": "ts-node src/server.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

@@ -1,15 +1,12 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
 }
 
 model User {
@@ -18,74 +15,25 @@ model User {
   password  String
   firstName String?
   lastName  String?
-  role      UserRole @default(USER)
+  role      UserRole @default(ADMIN)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  // Relations
-  residences Residence[]
-  createdTickets Ticket[] @relation("CreatedTickets")
-  assignedTickets Ticket[] @relation("AssignedTickets")
 
   @@map("users")
 }
 
-model Residence {
-  id          String   @id @default(cuid())
-  name        String
-  address     String
-  city        String
-  postalCode  String
-  units       Int
-  description String?
-  createdAt   DateTime @default(now())
+model ContactForm {
+  id        String   @id @default(cuid())
+  building  Json
+  request   Json
+  identity  Json
+  status    String   @default("NEW")
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relations
-  managerId String?
-  manager   User?   @relation(fields: [managerId], references: [id])
-  tickets   Ticket[]
-
-  @@unique([name, address, city])
-  @@map("residences")
-}
-
-model Ticket {
-  id          String      @id @default(cuid())
-  title       String
-  description String
-  status      TicketStatus @default(OPEN)
-  priority    Priority    @default(MEDIUM)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-
-  // Relations
-  residenceId String
-  residence   Residence @relation(fields: [residenceId], references: [id])
-  createdBy   String
-  creator     User @relation("CreatedTickets", fields: [createdBy], references: [id])
-  assignedTo  String?
-  assignee    User? @relation("AssignedTickets", fields: [assignedTo], references: [id])
-
-  @@map("tickets")
+  @@map("contact_forms")
 }
 
 enum UserRole {
   ADMIN
-  MANAGER
-  USER
-}
-
-enum TicketStatus {
-  OPEN
-  IN_PROGRESS
-  RESOLVED
-  CLOSED
-}
-
-enum Priority {
-  LOW
-  MEDIUM
-  HIGH
-  URGENT
 }
