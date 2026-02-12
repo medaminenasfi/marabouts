@@ -1,21 +1,16 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useAuth } from '@/contexts/auth-context'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/contexts/auth-context'
 import { AdminRoute } from '@/components/protected-routes'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { 
-  Building2, 
-  Users, 
-  LogOut, 
-  Eye, 
-  BarChart3
-} from 'lucide-react'
-import { apiClient } from '@/lib/api-client'
+import { Building2, Users, FileText, LogOut, TrendingUp, BarChart3, Eye } from 'lucide-react'
 import { Logo } from '@/components/logo'
+import { ScrollToTop } from '@/components/scroll-to-top'
+import { apiClient } from '@/lib/api-client'
 
 interface DashboardStats {
   totalForms: number
@@ -115,8 +110,9 @@ export default function AdminDashboard() {
   }
 
   return (
-    <AdminRoute>
-      <div className="min-h-screen bg-background">
+    <>
+      <AdminRoute>
+        <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="bg-white border-b border-border sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -177,6 +173,8 @@ export default function AdminDashboard() {
           </Card>
         </div>
       </div>
-    </AdminRoute>
+      </AdminRoute>
+      <ScrollToTop />
+    </>
   )
 }

@@ -7,17 +7,10 @@ import { AdminRoute } from '@/components/protected-routes'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { 
-  ArrowLeft, 
-  Eye, 
-  Building2,
-  User,
-  Phone,
-  Mail,
-  Calendar
-} from 'lucide-react'
+import { ArrowLeft, Eye, Building2, User, Phone, Mail, Calendar } from 'lucide-react'
 import { apiClient } from '@/lib/api-client'
 import { Logo } from '@/components/logo'
+import { ScrollToTop } from '@/components/scroll-to-top'
 
 interface ContactFormSubmission {
   id: string
@@ -72,8 +65,9 @@ export default function AdminFormsPage() {
   }
 
   return (
-    <AdminRoute>
-      <div className="min-h-screen bg-background">
+    <>
+      <AdminRoute>
+        <div className="min-h-screen bg-background">
         {/* Header */}
         <header className="bg-white border-b border-border sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -264,6 +258,8 @@ export default function AdminFormsPage() {
           </div>
         )}
       </div>
-    </AdminRoute>
+      </AdminRoute>
+      <ScrollToTop />
+    </>
   )
 }

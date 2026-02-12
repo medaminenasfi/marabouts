@@ -10,6 +10,7 @@ import { KpiSection } from '@/components/kpi-section'
 import { CtaSection } from '@/components/cta-section'
 import { ContactForm } from '@/components/contact-form'
 import { Footer } from '@/components/footer'
+import { ScrollToTop } from '@/components/scroll-to-top'
 
 export default function Page() {
   return (
@@ -26,6 +27,7 @@ export default function Page() {
       <CtaSection />
       <ContactForm />
       <Footer />
+      <ScrollToTop />
     </div>
   )
 }
