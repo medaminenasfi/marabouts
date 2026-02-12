@@ -1,10 +1,21 @@
 'use client'
 
+import { useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { CheckCircle2 } from 'lucide-react'
+import { CheckCircle2, X } from 'lucide-react'
+import Link from 'next/link'
 
 export function Hero() {
+  const [showCalendly, setShowCalendly] = useState(false)
+
+  const openCalendly = () => {
+    setShowCalendly(true)
+  }
+
+  const closeCalendly = () => {
+    setShowCalendly(false)
+  }
   return (
     <section className="relative min-h-[calc(100vh-80px)] flex items-center justify-center overflow-hidden pt-20 pb-20">
       {/* Background with image overlay */}
@@ -67,14 +78,49 @@ export function Hero() {
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="bg-primary hover:bg-primary-dark text-white rounded-lg font-semibold px-8 transition-all duration-200 hover:-translate-y-0.5">
-            Demander un devis
-          </Button>
-          <Button size="lg" variant="outline" className="rounded-lg font-semibold px-8 bg-transparent transition-all duration-200 hover:-translate-y-0.5">
+          <Link href="#contact">
+            <Button size="lg" className="bg-primary hover:bg-primary-dark text-white rounded-lg font-semibold px-8 transition-all duration-200 hover:-translate-y-0.5">
+              Demander un devis
+            </Button>
+          </Link>
+          <Button 
+            size="lg" 
+            variant="outline" 
+            className="rounded-lg font-semibold px-8 bg-transparent transition-all duration-200 hover:-translate-y-0.5"
+            onClick={openCalendly}
+          >
             Planifier un rendez-vous
           </Button>
         </div>
       </div>
+
+      {/* Calendly Modal */}
+      {showCalendly && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl">
+            <div className="flex items-center justify-between p-4 border-b">
+              <h3 className="text-lg font-semibold text-foreground">Planifier un rendez-vous</h3>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={closeCalendly}
+                className="h-8 w-8 p-0"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="h-[600px] overflow-auto">
+              <iframe 
+                src="https://calendly.com/tnecotourisme/30min"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                className="min-h-[600px]"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
