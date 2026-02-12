@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   title: 'Marabouts - Gestion de Syndic Professionnelle',
   description: 'Supervision terrain 7j/7 • Gestion structurée • Transparence totale',
   generator: 'v0.app',
+  icons: {
+    icon: '/assests/marabouts-logo.webp',
+  },
 }
 
 export const viewport: Viewport = {

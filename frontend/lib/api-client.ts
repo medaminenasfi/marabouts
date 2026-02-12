@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3003/api'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:6000/api'
 
 class ApiClient {
   private baseURL: string
