@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { AlertCircle, Eye, EyeOff, Shield } from 'lucide-react'
+import { Logo } from '@/components/logo'
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('')
@@ -28,7 +29,7 @@ export default function AdminLoginPage() {
       await login(email, password)
       router.push('/admin/dashboard')
     } catch (err: any) {
-      setError(err.message || 'Login failed. Please try again.')
+      setError(err.message || 'Identifiants incorrects. Veuillez réessayer.')
     } finally {
       setIsLoading(false)
     }
@@ -44,20 +45,20 @@ export default function AdminLoginPage() {
             <Shield className="w-8 h-8 text-white" />
           </div>
           <h1 className="font-heading font-bold text-3xl text-foreground mb-2">
-            Admin Login
+            Connexion Admin
           </h1>
           <p className="text-muted-foreground">
-            Access Marabouts management dashboard
+            Accédez au tableau de bord Marabouts
           </p>
         </div>
 
         <Card className="shadow-xl border-border/50">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-heading text-center">
-              Sign In
+              Se connecter
             </CardTitle>
             <CardDescription className="text-center">
-              Enter your credentials to access the admin panel
+              Entrez vos identifiants pour accéder au panneau d'administration
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -74,7 +75,7 @@ export default function AdminLoginPage() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="admin@marabouts.fr"
+                  placeholder="admin@admin.fr"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -83,12 +84,12 @@ export default function AdminLoginPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Mot de passe</Label>
                 <div className="relative">
                   <Input
                     id="password"
                     type={showPassword ? 'text' : 'password'}
-                    placeholder="Enter your password"
+                    placeholder="Entrez votre mot de passe"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -113,26 +114,11 @@ export default function AdminLoginPage() {
                 className="w-full h-12 bg-primary hover:bg-primary-dark text-white font-semibold rounded-lg transition-colors"
                 disabled={isLoading}
               >
-                {isLoading ? 'Signing in...' : 'Sign In'}
+                {isLoading ? 'Connexion...' : 'Se connecter'}
               </Button>
             </form>
 
-            <div className="mt-6 space-y-4">
-              <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
-                <p className="text-sm text-muted-foreground text-center">
-                  <strong>Demo credentials:</strong><br />
-                  Email: admin@admin.fr<br />
-                  Password: (use what you created)
-                </p>
-              </div>
-              
-              <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
-                <p className="text-sm text-blue-800 text-center">
-                  <strong>Need an admin account?</strong><br />
-                  Register first at: <code>/admin/register</code>
-                </p>
-              </div>
-            </div>
+      
           </CardContent>
         </Card>
       </div>

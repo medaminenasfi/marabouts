@@ -20,11 +20,11 @@ export function CtaSection() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-xl font-semibold px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-lg font-semibold px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5 group">
                 Demander un devis
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-white text-black hover:bg-white hover:text-primary rounded-xl font-semibold px-8 py-6 text-lg transition-all duration-300 hover:scale-105 group">
+              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary rounded-lg font-semibold px-8 py-6 text-lg transition-all duration-200 hover:-translate-y-0.5 group">
                 <Calendar className="mr-2 w-5 h-5" />
                 Planifier un rendez-vous
               </Button>

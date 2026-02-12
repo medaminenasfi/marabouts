@@ -67,10 +67,10 @@ export function Hero() {
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button size="lg" className="bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold px-8">
+          <Button size="lg" className="bg-primary hover:bg-primary-dark text-white rounded-lg font-semibold px-8 transition-all duration-200 hover:-translate-y-0.5">
             Demander un devis
           </Button>
-          <Button size="lg" variant="outline" className="rounded-lg font-semibold px-8 bg-transparent">
+          <Button size="lg" variant="outline" className="rounded-lg font-semibold px-8 bg-transparent transition-all duration-200 hover:-translate-y-0.5">
             Planifier un rendez-vous
           </Button>
         </div>

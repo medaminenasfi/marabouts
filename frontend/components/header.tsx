@@ -48,8 +48,8 @@ export function Header() {
         </div>
 
         {/* CTA Button */}
-        <Button className="bg-primary hover:bg-primary/90 text-white font-medium rounded-full px-6 h-12">
-          <a href="/admin/login" className="flex items-center">
+        <Button className="bg-primary hover:bg-primary-dark text-white font-medium rounded-lg px-6 h-12 transition-all duration-200 hover:-translate-y-0.5">
+          <a href="#contact" className="flex items-center">
             Demander un audit
           </a>
         </Button>
