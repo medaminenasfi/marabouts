@@ -244,7 +244,6 @@ export default function AdminFormsPage() {
                   <div className="bg-gray-50 rounded-lg p-4">
                     <h3 className="font-semibold mb-3">📅 Métadonnées</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                      <div><strong>ID:</strong> {selectedForm.id}</div>
                       <div><strong>Statut:</strong> 
                         <Badge variant={selectedForm.status === 'NEW' ? 'destructive' : 'secondary'} className="ml-2">
                           {selectedForm.status}

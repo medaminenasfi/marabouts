@@ -164,10 +164,9 @@ export default function AdminDashboard() {
           <Card>
             <CardContent className="pt-6">
               <div className="text-center">
-                <div className="text-4xl mb-4">📊</div>
                 <h3 className="text-lg font-semibold mb-2">Tableau de Bord Administrateur</h3>
                 <p className="text-muted-foreground mb-4">
-                  Cliquez sur "Total des Formulaires" pour voir toutes les personnes qui ont rempli le formulaire de contact
+                  Cliquez sur "Total des Formulaires" pour voir toutes les personnes
                 </p>
                 <Button onClick={() => router.push('/admin/forms')} className="mt-2">
                   <Eye className="w-4 h-4 mr-2" />
