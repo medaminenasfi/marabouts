@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:6000/api'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
 
 class ApiClient {
   private baseURL: string
@@ -18,6 +18,9 @@ class ApiClient {
       ? localStorage.getItem('auth_token') 
       : null
 
+    console.log(`🌐 API Request: ${options.method || 'GET'} ${url}`)
+    console.log(`🔐 Token exists: ${!!token}`)
+
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       ...(options.headers as Record<string, string> || {}),
@@ -35,14 +38,19 @@ class ApiClient {
     try {
       const response = await fetch(url, config)
       
+      console.log(`📡 Response status: ${response.status}`)
+      
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
+        console.error(`❌ API Error: ${response.status} - ${errorData.error || 'Unknown error'}`)
         throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
       }
 
-      return await response.json()
+      const data = await response.json()
+      console.log(`✅ API Success: ${endpoint}`)
+      return data
     } catch (error) {
-      console.error('API request failed:', error)
+      console.error('❌ API request failed:', error)
       throw error
     }
   }

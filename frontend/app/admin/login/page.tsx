@@ -117,12 +117,21 @@ export default function AdminLoginPage() {
               </Button>
             </form>
 
-            <div className="mt-6 p-4 rounded-lg bg-primary/5 border border-primary/20">
-              <p className="text-sm text-muted-foreground text-center">
-                <strong>Demo credentials:</strong><br />
-                Email: admin@marabouts.fr<br />
-                Password: admin123
-              </p>
+            <div className="mt-6 space-y-4">
+              <div className="p-4 rounded-lg bg-primary/5 border border-primary/20">
+                <p className="text-sm text-muted-foreground text-center">
+                  <strong>Demo credentials:</strong><br />
+                  Email: admin@admin.fr<br />
+                  Password: (use what you created)
+                </p>
+              </div>
+              
+              <div className="p-4 rounded-lg bg-blue-50 border border-blue-200">
+                <p className="text-sm text-blue-800 text-center">
+                  <strong>Need an admin account?</strong><br />
+                  Register first at: <code>/admin/register</code>
+                </p>
+              </div>
             </div>
           </CardContent>
         </Card>

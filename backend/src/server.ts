@@ -18,7 +18,7 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter }) as any; // Type assertion to bypass Prisma v7 adapter type issue
 
 const app = express();
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 8000;
 
 console.log('🔧 Starting Marabouts Backend...');
 console.log(`📍 PORT: ${PORT}`);

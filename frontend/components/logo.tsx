@@ -5,7 +5,7 @@ export function Logo({ variant = 'light' }: { variant?: 'light' | 'dark' }) {
     <div className="flex items-center space-x-3">
       <div className="relative">
         <img 
-          src="/assests/marabouts-logo-♥.webp"
+          src="/assests/marabouts-logo.webp"
           alt="Marabouts"
           className="h-10 w-auto"
           onError={(e) => {
