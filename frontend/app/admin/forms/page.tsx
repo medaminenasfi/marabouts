@@ -250,7 +250,6 @@ export default function AdminFormsPage() {
                         </Badge>
                       </div>
                       <div><strong>Soumis le:</strong> {new Date(selectedForm.createdAt).toLocaleString('fr-FR')}</div>
-                      <div><strong>Mis à jour le:</strong> {selectedForm.updatedAt ? new Date(selectedForm.updatedAt).toLocaleString('fr-FR') : 'Non disponible'}</div>
                     </div>
                   </div>
                 </div>
