@@ -1,8 +1,30 @@
 'use client'
 
-export function Logo({ variant = 'light' }: { variant?: 'light' | 'dark' }) {
+import { useRouter } from 'next/navigation'
+
+export function Logo({ 
+  variant = 'light', 
+  onClick 
+}: { 
+  variant?: 'light' | 'dark'
+  onClick?: () => void 
+}) {
+  const router = useRouter()
+  
+  const handleClick = () => {
+    if (onClick) {
+      onClick()
+    } else {
+      // Par défaut, redirige vers le dashboard admin
+      router.push('/admin/dashboard')
+    }
+  }
+
   return (
-    <div className="flex items-center space-x-3">
+    <div 
+      className="flex items-center space-x-3 cursor-pointer hover:opacity-80 transition-opacity"
+      onClick={handleClick}
+    >
       <div className="relative">
         <img 
           src="/assests/marabouts-logo.webp"
