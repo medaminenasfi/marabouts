@@ -44,10 +44,29 @@ export function ContactForm() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
+    
+    // Validation spécifique pour certains champs
+    if (name === 'email') {
+      // Accepte uniquement les caractères valides pour un email
+      const emailValue = value.toLowerCase().replace(/[^a-z0-9@._-]/g, '')
+      setFormData((prev) => ({
+        ...prev,
+        [name]: emailValue,
+      }))
+    } else if (name === 'apartments') {
+      // Accepte uniquement les nombres
+      const numberValue = value.replace(/[^0-9]/g, '')
+      setFormData((prev) => ({
+        ...prev,
+        [name]: numberValue,
+      }))
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }))
+    }
+    
     // Clear error when user starts typing
     if (error) setError('')
   }
@@ -93,19 +112,49 @@ export function ContactForm() {
   const handleNextStep = () => {
     switch (step) {
       case 'building':
-        if (formData.residenceName && formData.address && formData.apartments) {
-          setStep('request')
+        // Validation de l'étape building
+        if (!formData.residenceName || !formData.address || !formData.apartments) {
+          setError('Veuillez remplir tous les champs obligatoires')
+          return
         }
+        
+        // Validation du nombre d'appartements
+        if (!formData.apartments || parseInt(formData.apartments) <= 0) {
+          setError('Le nombre d\'appartements doit être un nombre positif')
+          return
+        }
+        
+        setStep('request')
         break
+        
       case 'request':
         if (formData.motif && formData.description) {
           setStep('identity')
         }
         break
+        
       case 'identity':
-        if (formData.role && formData.name && formData.phone && formData.email) {
-          handleSubmit()
+        // Validation de l'étape identity
+        if (!formData.role || !formData.name || !formData.phone || !formData.email) {
+          setError('Veuillez remplir tous les champs obligatoires')
+          return
         }
+        
+        // Validation de l'email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if (!emailRegex.test(formData.email)) {
+          setError('Veuillez entrer une adresse email valide')
+          return
+        }
+        
+        // Validation du téléphone (format plus flexible)
+        const phoneRegex = /^[\d\s\-\+\(\)]*$/
+        if (!phoneRegex.test(formData.phone)) {
+          setError('Veuillez entrer un numéro de téléphone valide')
+          return
+        }
+        
+        handleSubmit()
         break
     }
   }
@@ -169,7 +218,7 @@ export function ContactForm() {
               </h3>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Nom de la résidence
+                  Nom de la résidence <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="text"
@@ -182,7 +231,7 @@ export function ContactForm() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Adresse
+                  Adresse <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="text"
@@ -195,16 +244,20 @@ export function ContactForm() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Nombre d'appartements
+                  Nombre d'appartements <span className="text-red-500">*</span>
                 </label>
                 <Input
-                  type="number"
+                  type="text"
                   name="apartments"
                   value={formData.apartments}
                   onChange={handleChange}
-                  placeholder="Ex: 24"
+                  placeholder="Ex: 24 (uniquement des chiffres)"
                   className="rounded-lg"
+                  inputMode="numeric"
                 />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Entrez uniquement le nombre d'appartements
+                </p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
@@ -234,7 +287,7 @@ export function ContactForm() {
               </h3>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Motif principal
+                  Motif principal <span className="text-red-500">*</span>
                 </label>
                 <select
                   name="motif"
@@ -252,7 +305,7 @@ export function ContactForm() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Description détaillée
+                  Description détaillée <span className="text-red-500">*</span>
                 </label>
                 <Textarea
                   name="description"
@@ -273,7 +326,7 @@ export function ContactForm() {
               </h3>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Rôle
+                  Rôle <span className="text-red-500">*</span>
                 </label>
                 <select
                   name="role"
@@ -291,7 +344,7 @@ export function ContactForm() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Nom complet
+                  Nom complet <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="text"
@@ -304,7 +357,7 @@ export function ContactForm() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Téléphone
+                  Téléphone <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="tel"
@@ -317,7 +370,7 @@ export function ContactForm() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
-                  Email
+                  Email <span className="text-red-500">*</span>
                 </label>
                 <Input
                   type="email"
@@ -327,6 +380,9 @@ export function ContactForm() {
                   placeholder="votre@email.com"
                   className="rounded-lg"
                 />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Format: nom@domaine.com
+                </p>
               </div>
             </div>
           )}
