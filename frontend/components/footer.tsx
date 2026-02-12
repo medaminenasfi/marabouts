@@ -103,7 +103,7 @@ export function Footer() {
 
         {/* Copyright */}
         <div className="border-t border-background/10 pt-8 text-center text-sm text-background/70">
-          <p>&copy; 2025 Marabouts. Tous droits réservés.</p>
+          <p>&copy; 2026 Marabouts. Tous droits réservés.</p>
         </div>
       </div>
     </footer>

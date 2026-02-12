@@ -24,7 +24,7 @@ export function CtaSection() {
                 Demander un devis
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </Button>
-              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary rounded-xl font-semibold px-8 py-6 text-lg transition-all duration-300 hover:scale-105 group">
+              <Button size="lg" variant="outline" className="border-2 border-white text-black hover:bg-white hover:text-primary rounded-xl font-semibold px-8 py-6 text-lg transition-all duration-300 hover:scale-105 group">
                 <Calendar className="mr-2 w-5 h-5" />
                 Planifier un rendez-vous
               </Button>
