@@ -189,6 +189,139 @@ app.post('/api/contact/submit', async (req: express.Request, res: express.Respon
   }
 });
 
+// Calendly Webhook Endpoint
+app.post('/api/calendly/webhook', async (req: express.Request, res: express.Response) => {
+  try {
+    console.log('📅 Webhook Calendly reçu:', req.body)
+    
+    const { event, payload, source, timestamp } = req.body;
+
+    if (event === 'invitee.created') {
+      // Créer une entrée avec les données du webhook
+      const result = await pool.query(`
+        INSERT INTO calendly_events (
+          calendlyEventId, 
+          eventName, 
+          startTime, 
+          endTime, 
+          location, 
+          inviteeEmail, 
+          inviteeName, 
+          inviteePhone, 
+          inviteeQuestions, 
+          status, 
+          source, 
+          createdAt
+        ) VALUES (
+          $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12
+        )
+        RETURNING *
+      `, [
+        payload?.event?.uri || 'unknown',
+        payload?.event?.name || 'Scheduled Event',
+        payload?.event?.start_time ? new Date(payload.event.start_time) : new Date(),
+        payload?.event?.end_time ? new Date(payload.event.end_time) : new Date(Date.now() + 30 * 60 * 1000),
+        payload?.event?.location || 'Online',
+        payload?.invitee?.email || 'pending@calendly.com',
+        payload?.invitee?.name || 'Calendly User',
+        payload?.invitee?.phone || null,
+        JSON.stringify(payload?.invitee?.questions_and_answers) || null,
+        'active',
+        source || 'marabouts-website',
+        timestamp ? new Date(timestamp) : new Date()
+      ]);
+
+      console.log('✅ Rendez-vous enregistré:', result.rows[0]);
+
+      res.status(200).json({ 
+        success: true, 
+        message: 'Rendez-vous enregistré avec succès',
+        eventId: result.rows[0]?.id 
+      });
+    } else {
+      res.status(200).json({ message: 'Événement non traité' });
+    }
+  } catch (error) {
+    console.error('❌ Erreur webhook Calendly:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+// Get Calendly Events
+app.get('/api/calendly/events', async (_req: express.Request, res: express.Response) => {
+  try {
+    const result = await pool.query(`
+      SELECT * FROM calendly_events 
+      ORDER BY startTime DESC
+    `);
+
+    res.status(200).json(result.rows || []);
+  } catch (error) {
+    console.error('❌ Erreur événements:', error);
+    res.status(200).json([]);
+  }
+});
+
+// Get Calendly Stats
+app.get('/api/calendly/stats', async (_req: express.Request, res: express.Response) => {
+  try {
+    const result = await pool.query(`
+      SELECT 
+        COALESCE(COUNT(*), 0) as "totalEvents",
+        COALESCE(COUNT(CASE WHEN startTime >= NOW() THEN 1 END), 0) as "upcomingEvents",
+        COALESCE(COUNT(CASE WHEN startTime < NOW() THEN 1 END), 0) as "pastEvents"
+      FROM calendly_events
+    `);
+
+    const stats = result.rows[0] || {
+      totalEvents: 0,
+      upcomingEvents: 0,
+      pastEvents: 0
+    };
+
+    res.status(200).json(stats);
+  } catch (error) {
+    console.error('❌ Erreur stats:', error);
+    res.status(200).json({
+      totalEvents: 0,
+      upcomingEvents: 0,
+      pastEvents: 0
+    });
+  }
+});
+
+// Create Calendly Table
+app.post('/api/calendly/setup-table', async (_req: express.Request, res: express.Response) => {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS calendly_events (
+          id TEXT PRIMARY KEY DEFAULT gen_random_uuid(),
+          calendlyEventId TEXT UNIQUE NOT NULL,
+          eventName TEXT NOT NULL,
+          startTime TIMESTAMP NOT NULL,
+          endTime TIMESTAMP NOT NULL,
+          location TEXT,
+          inviteeEmail TEXT NOT NULL,
+          inviteeName TEXT NOT NULL,
+          inviteePhone TEXT,
+          inviteeQuestions JSONB,
+          status TEXT DEFAULT 'active',
+          source TEXT,
+          createdAt TIMESTAMP DEFAULT NOW(),
+          updatedAt TIMESTAMP DEFAULT NOW()
+      )
+    `);
+
+    res.status(200).json({ 
+      success: true, 
+      message: 'Table calendly_events créée' 
+    });
+  } catch (error) {
+    console.error('❌ Erreur création table:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
 // 404 handler
 app.use((_req: express.Request, res: express.Response) => {
   res.status(404).json({ error: 'Route not found' });

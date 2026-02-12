@@ -70,7 +70,7 @@ export function CtaSection() {
             </div>
             <div className="h-[600px] overflow-auto">
               <iframe 
-                src="https://calendly.com/tnecotourisme/30min"
+                src={process.env.NEXT_PUBLIC_CALENDLY_URL + "?embed_domain=localhost%3A6001&embed_type=Inline&utm_source=marabouts-website&utm_medium=landing-page&utm_campaign=consultation-request"}
                 width="100%"
                 height="100%"
                 frameBorder="0"

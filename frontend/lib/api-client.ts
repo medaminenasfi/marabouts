@@ -180,6 +180,22 @@ class ApiClient {
   async healthCheck() {
     return this.request('/health')
   }
+
+  // Calendly endpoints
+  async getCalendlyStats() {
+    return this.request('/calendly/stats')
+  }
+
+  async getCalendlyEvents() {
+    return this.request('/calendly/events')
+  }
+
+  async sendCalendlyWebhook(data: any) {
+    return this.request('/calendly/webhook', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+  }
 }
 
 export const apiClient = new ApiClient(API_BASE_URL)
