@@ -39,10 +39,18 @@ const residences = [
 
 export function ResidencesSection() {
   const [scrollPosition, setScrollPosition] = useState(0)
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
   const scroll = (direction: 'left' | 'right') => {
     if (!scrollContainerRef.current) return
+
+    // Arrêter l'auto-scroll lors de l'interaction manuelle
+    setIsAutoScrolling(false)
+    if (autoScrollIntervalRef.current) {
+      clearInterval(autoScrollIntervalRef.current)
+    }
 
     const scrollAmount = 320
     const newPosition =
@@ -55,7 +63,47 @@ export function ResidencesSection() {
       behavior: 'smooth',
     })
     setScrollPosition(newPosition)
+
+    // Redémarrer l'auto-scroll après 10 secondes d'inactivité
+    setTimeout(() => {
+      setIsAutoScrolling(true)
+    }, 10000)
   }
+
+  // Auto-scroll automatique
+  useEffect(() => {
+    if (!isAutoScrolling) return
+
+    const startAutoScroll = () => {
+      autoScrollIntervalRef.current = setInterval(() => {
+        if (scrollContainerRef.current && isAutoScrolling) {
+          const maxScroll = scrollContainerRef.current.scrollWidth - scrollContainerRef.current.clientWidth
+          if (scrollPosition >= maxScroll) {
+            // Retour au début
+            scrollContainerRef.current.scrollTo({
+              left: 0,
+              behavior: 'smooth',
+            })
+            setScrollPosition(0)
+          } else {
+            scrollContainerRef.current.scrollTo({
+              left: scrollPosition + 320,
+              behavior: 'smooth',
+            })
+            setScrollPosition(prev => prev + 320)
+          }
+        }
+      }, 3000) // Scroll toutes les 3 secondes
+    }
+
+    startAutoScroll()
+
+    return () => {
+      if (autoScrollIntervalRef.current) {
+        clearInterval(autoScrollIntervalRef.current)
+      }
+    }
+  }, [isAutoScrolling, scrollPosition])
 
   useEffect(() => {
     const container = scrollContainerRef.current
