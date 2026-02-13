@@ -16,9 +16,12 @@ interface FormData {
   address: string
   apartments: string
   situation: string
+  situationOther: string
   motif: string
+  motifOther: string
   description: string
   role: string
+  roleOther: string
   name: string
   phone: string
   email: string
@@ -31,9 +34,12 @@ export function ContactForm() {
     address: '',
     apartments: '',
     situation: '',
+    situationOther: '',
     motif: '',
+    motifOther: '',
     description: '',
     role: '',
+    roleOther: '',
     name: '',
     email: '',
     phone: '',
@@ -85,18 +91,24 @@ export function ContactForm() {
           address: formData.address,
           city: formData.address.split(',').pop()?.trim() || 'Paris',
           units: formData.apartments,
-          description: `Situation: ${formData.situation}, Motif: ${formData.motif}`
+          situation: formData.situation === 'autres' && formData.situationOther 
+            ? `Autres: ${formData.situationOther}` 
+            : formData.situation,
+          motif: formData.motif === 'autre' && formData.motifOther 
+            ? `Autre: ${formData.motifOther}` 
+            : formData.motif
         },
         request: {
           subject: `Demande de devis - ${formData.residenceName}`,
-          description: formData.description,
-          priority: 'MEDIUM'
+          description: formData.description
         },
         identity: {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
-          role: formData.role
+          role: formData.role === 'other' && formData.roleOther 
+            ? `Autre: ${formData.roleOther}` 
+            : formData.role
         }
       }
 
@@ -279,6 +291,18 @@ export function ContactForm() {
                   <option value="change">Changement de syndic</option>
                   <option value="autres">Autres</option>
                 </select>
+                {formData.situation === 'autres' && (
+                  <div className="mt-2">
+                    <Input
+                      type="text"
+                      name="situationOther"
+                      value={formData.situationOther}
+                      onChange={handleChange}
+                      placeholder="Précisez votre situation..."
+                      className="rounded-lg"
+                    />
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -306,6 +330,18 @@ export function ContactForm() {
                   <option value="supervision">Superviser le terrain</option>
                   <option value="autre">Autre</option>
                 </select>
+                {formData.motif === 'autre' && (
+                  <div className="mt-2">
+                    <Input
+                      type="text"
+                      name="motifOther"
+                      value={formData.motifOther}
+                      onChange={handleChange}
+                      placeholder="Précisez votre motif..."
+                      className="rounded-lg"
+                    />
+                  </div>
+                )}
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
@@ -345,6 +381,18 @@ export function ContactForm() {
                   <option value="promoter">Promoteur immobilier</option>
                   <option value="other">Autre</option>
                 </select>
+                {formData.role === 'other' && (
+                  <div className="mt-2">
+                    <Input
+                      type="text"
+                      name="roleOther"
+                      value={formData.roleOther}
+                      onChange={handleChange}
+                      placeholder="Précisez votre rôle..."
+                      className="rounded-lg"
+                    />
+                  </div>
+                )}
               </div>
               <div>
                 <label className="block text-sm font-medium text-foreground mb-2">
@@ -415,9 +463,12 @@ export function ContactForm() {
                       address: '',
                       apartments: '',
                       situation: '',
+                      situationOther: '',
                       motif: '',
+                      motifOther: '',
                       description: '',
                       role: '',
+                      roleOther: '',
                       name: '',
                       phone: '',
                       email: '',

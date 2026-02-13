@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 import { AdminRoute } from '@/components/protected-routes'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { ArrowLeft, Eye, Building2, User, Phone, Mail, Calendar } from 'lucide-react'
 import { apiClient } from '@/lib/api-client'
 import { Logo } from '@/components/logo'
@@ -31,6 +30,12 @@ const getRoleLabel = (role: string) => {
     'promoter': 'Promoteur immobilier',
     'other': 'Autre'
   }
+  
+  // Handle "Autre: custom text" format
+  if (role?.startsWith('Autre:')) {
+    return role
+  }
+  
   return roleMap[role] || role
 }
 
@@ -41,6 +46,12 @@ const getSituationLabel = (situation: string) => {
     'change': 'Changement de syndic',
     'autres': 'Autres'
   }
+  
+  // Handle "Autres: custom text" format
+  if (situation?.startsWith('Autres:')) {
+    return situation
+  }
+  
   return situationMap[situation] || situation
 }
 
@@ -52,6 +63,12 @@ const getMotifLabel = (motif: string) => {
     'supervision': 'Superviser le terrain',
     'autre': 'Autre'
   }
+  
+  // Handle "Autre: custom text" format
+  if (motif?.startsWith('Autre:')) {
+    return motif
+  }
+  
   return motifMap[motif] || motif
 }
 
@@ -266,48 +283,35 @@ export default function AdminFormsPage() {
                   <div className="bg-accent/5 rounded-lg p-4 border border-accent/10">
                     <h3 className="font-semibold mb-3 flex items-center gap-2">
                       <Building2 className="w-5 h-5 text-accent-foreground" />
-                      Informations du bâtiment
-                    </h3>
+Informations immeuble                    </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                      <div><strong>Nom:</strong> {selectedForm.building?.name || 'Non fourni'}</div>
+                      <div><strong>Nom de la résidence :</strong> {selectedForm.building?.name || 'Non fourni'}</div>
                       <div><strong>Adresse:</strong> {selectedForm.building?.address || 'Non fourni'}</div>
-                      <div><strong>Ville:</strong> {selectedForm.building?.city || 'Non fourni'}</div>
-                      <div><strong>Unités:</strong> {selectedForm.building?.units || 'Non fourni'}</div>
+                      <div><strong>Nombre d'appartements:</strong> {selectedForm.building?.units || 'Non fourni'}</div>
                     </div>
-                    {selectedForm.building?.description && (
+                    {selectedForm.building?.situation && (
                       <div className="mt-3">
+                        <strong>Situation actuelle:</strong> {getSituationLabel(selectedForm.building.situation)}
+                      </div>
+                    )}
+                
+                    {selectedForm.building?.description && (
+                      <div className="mt-2">
                         <strong>Description:</strong> {selectedForm.building.description}
-                        {/* Extraire et afficher les options */}
-                        {(() => {
-                          const desc = selectedForm.building.description;
-                          const situationMatch = desc.match(/Situation: ([^,]+)/);
-                          const motifMatch = desc.match(/Motif: (.+)/);
-                          
-                          return (
-                            <div className="mt-2 space-y-1">
-                              {situationMatch && (
-                                <div><strong>Situation:</strong> {getSituationLabel(situationMatch[1].trim())}</div>
-                              )}
-                              {motifMatch && (
-                                <div><strong>Motif:</strong> {getMotifLabel(motifMatch[1].trim())}</div>
-                              )}
-                            </div>
-                          );
-                        })()}
                       </div>
                     )}
                   </div>
 
                   {/* Détails de la demande */}
                   <div className="bg-warning/5 rounded-lg p-4 border border-warning/20">
-                    <h3 className="font-semibold mb-3">📝 Détails de la demande</h3>
+                    <h3 className="font-semibold mb-3">📝 Nature de la demande</h3>
                     <div className="space-y-2 text-sm">
                       <div><strong>Sujet:</strong> {selectedForm.request?.subject || 'Non fourni'}</div>
-                      <div><strong>Priorité:</strong> 
-                        <Badge variant="outline" className="ml-2">
-                          {selectedForm.request?.priority || 'Non fourni'}
-                        </Badge>
+                          {selectedForm.building?.motif && (
+                      <div className="mt-2">
+                        <strong>Motif:</strong> {getMotifLabel(selectedForm.building.motif)}
                       </div>
+                    )}
                       {selectedForm.request?.description && (
                         <div>
                           <strong>Description:</strong> {selectedForm.request.description}
