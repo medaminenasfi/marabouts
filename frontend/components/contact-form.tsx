@@ -181,23 +181,23 @@ export function ContactForm() {
   }
 
   return (
-    <section id="contact" className="py-20 px-6 bg-white">
+    <section id="contact" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-white">
       <div className="max-w-2xl mx-auto">
-        <div className={`text-center mb-12 scroll-fade-in ${formVisible ? 'visible' : ''}`} ref={formRef}>
-          <h2 className="font-heading font-bold text-4xl text-foreground text-center mb-4">
+        <div className={`text-center mb-8 sm:mb-12 scroll-fade-in ${formVisible ? 'visible' : ''}`} ref={formRef}>
+          <h2 className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl text-foreground text-center mb-4 px-4">
             Obtenez votre devis personnalisé
           </h2>
-          <p className="text-center text-muted-foreground mb-12">
+          <p className="text-center text-muted-foreground text-sm sm:text-base mb-8 sm:mb-12 px-4">
             Remplissez le formulaire ci-dessous pour recevoir une proposition adaptée à votre résidence.
           </p>
         </div>
 
         {/* Step Indicator */}
-        <div className="flex justify-between mb-10">
+        <div className="flex justify-between mb-6 sm:mb-10 px-2 sm:px-0">
           {(['building', 'request', 'identity'] as const).map((s, index) => (
-            <div key={s} className="flex items-center">
+            <div key={s} className="flex items-center flex-1">
               <div
-                className={`w-10 h-10 rounded-full flex items-center justify-center font-heading font-bold transition-all duration-200 ${
+                className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-heading font-bold text-xs sm:text-sm transition-all duration-200 ${
                   step === s || (step === 'confirmation' && index < 3)
                     ? 'bg-primary text-white'
                     : 'bg-border text-muted-foreground'
@@ -207,7 +207,7 @@ export function ContactForm() {
               </div>
               {index < 2 && (
                 <div
-                  className={`w-12 h-1 mx-2 ${
+                  className={`w-6 sm:w-8 md:w-12 h-0.5 sm:h-1 mx-1 sm:mx-2 ${
                     step === 'confirmation' || step === 'identity' || (step !== 'building' && step !== 'request')
                       ? 'bg-primary'
                       : 'bg-border'
@@ -219,23 +219,23 @@ export function ContactForm() {
         </div>
 
         {/* Form Content */}
-        <Card className={`p-8 bg-background border border-border scroll-fade-in ${formVisible ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
+        <Card className={`p-4 sm:p-6 lg:p-8 bg-background border border-border scroll-fade-in ${formVisible ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
           {/* Error Display */}
           {error && (
-            <div className="mb-6 flex items-center gap-3 p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive">
-              <AlertCircle className="w-5 h-5 flex-shrink-0" />
-              <p className="text-sm">{error}</p>
+            <div className="mb-4 sm:mb-6 flex items-center gap-2 sm:gap-3 p-3 sm:p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive">
+              <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+              <p className="text-xs sm:text-sm">{error}</p>
             </div>
           )}
 
           {/* Step 1: Building Information */}
           {step === 'building' && (
-            <div className="space-y-6">
-              <h3 className="font-heading font-semibold text-xl text-foreground mb-6">
+            <div className="space-y-4 sm:space-y-6">
+              <h3 className="font-heading font-semibold text-lg sm:text-xl text-foreground mb-4 sm:mb-6">
                 Étape 1 — Informations immeuble
               </h3>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-foreground mb-1 sm:mb-2">
                   Nom de la résidence <span className="text-red-500">*</span>
                 </label>
                 <Input
@@ -244,11 +244,11 @@ export function ContactForm() {
                   value={formData.residenceName}
                   onChange={handleChange}
                   placeholder="Ex: Résidence Soleil"
-                  className="rounded-lg"
+                  className="rounded-lg text-sm sm:text-base py-2 sm:py-3"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-foreground mb-1 sm:mb-2">
                   Adresse <span className="text-red-500">*</span>
                 </label>
                 <Input
@@ -257,11 +257,11 @@ export function ContactForm() {
                   value={formData.address}
                   onChange={handleChange}
                   placeholder="Ex: 123 Rue de la Paix, Paris 16ème"
-                  className="rounded-lg"
+                  className="rounded-lg text-sm sm:text-base py-2 sm:py-3"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-foreground mb-1 sm:mb-2">
                   Nombre d'appartements <span className="text-red-500">*</span>
                 </label>
                 <Input
@@ -270,7 +270,7 @@ export function ContactForm() {
                   value={formData.apartments}
                   onChange={handleChange}
                   placeholder="Ex: 24 (uniquement des chiffres)"
-                  className="rounded-lg"
+                  className="rounded-lg text-sm sm:text-base py-2 sm:py-3"
                   inputMode="numeric"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
@@ -318,12 +318,12 @@ export function ContactForm() {
 
           {/* Step 2: Request Nature */}
           {step === 'request' && (
-            <div className="space-y-6">
-              <h3 className="font-heading font-semibold text-xl text-foreground mb-6">
+            <div className="space-y-4 sm:space-y-6">
+              <h3 className="font-heading font-semibold text-lg sm:text-xl text-foreground mb-4 sm:mb-6">
                 Étape 2 — Nature de la demande
               </h3>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-foreground mb-1 sm:mb-2">
                   Motif principal <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
@@ -354,13 +354,13 @@ export function ContactForm() {
                       value={formData.motifOther}
                       onChange={handleChange}
                       placeholder="Précisez votre motif..."
-                      className="rounded-lg"
+                      className="rounded-lg text-sm sm:text-base py-2 sm:py-3"
                     />
                   </div>
                 )}
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-foreground mb-1 sm:mb-2">
                   Description détaillée <span className="text-red-500">*</span>
                 </label>
                 <Textarea
@@ -368,7 +368,7 @@ export function ContactForm() {
                   value={formData.description}
                   onChange={handleChange}
                   placeholder="Décrivez vos besoins spécifiques..."
-                  className="rounded-lg min-h-24"
+                  className="rounded-lg min-h-20 sm:min-h-24 text-sm sm:text-base py-2 sm:py-3"
                 />
               </div>
             </div>
@@ -528,19 +528,19 @@ export function ContactForm() {
 
           {/* Navigation Buttons */}
           {step !== 'confirmation' && (
-            <div className="flex gap-4 justify-between mt-8 pt-8 border-t border-border">
+            <div className="flex gap-2 sm:gap-4 justify-between mt-6 sm:mt-8 pt-4 sm:pt-8 border-t border-border">
               <Button
                 variant="outline"
                 onClick={handlePrevStep}
                 disabled={step === 'building'}
-                className="rounded-lg bg-transparent"
+                className="rounded-lg bg-transparent text-sm sm:text-base px-3 sm:px-4 py-2 sm:py-3"
               >
                 Précédent
               </Button>
               <Button
                 onClick={handleNextStep}
                 disabled={isSubmitting}
-                className="bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold"
+                className="bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3"
               >
                 {isSubmitting ? (
                   <>
@@ -548,7 +548,7 @@ export function ContactForm() {
                     {step === 'identity' ? 'Envoi en cours...' : 'Suivant'}
                   </>
                 ) : (
-                  step === 'identity' ? 'Valider' : 'Suivant'
+                  step === 'identity' ? 'Envoyer' : 'Suivant'
                 )}
               </Button>
             </div>
