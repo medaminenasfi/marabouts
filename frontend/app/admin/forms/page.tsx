@@ -22,6 +22,39 @@ interface ContactFormSubmission {
   updatedAt?: string
 }
 
+// Fonctions pour convertir les codes en libellés lisibles
+const getRoleLabel = (role: string) => {
+  const roleMap: { [key: string]: string } = {
+    'president': 'Président du syndic',
+    'tresorier': 'Trésorier',
+    'resident': 'Résident',
+    'promoter': 'Promoteur immobilier',
+    'other': 'Autre'
+  }
+  return roleMap[role] || role
+}
+
+const getSituationLabel = (situation: string) => {
+  const situationMap: { [key: string]: string } = {
+    'gestion': 'Déjà en gestion externe',
+    'auto': 'Auto-gestion',
+    'change': 'Changement de syndic',
+    'autres': 'Autres'
+  }
+  return situationMap[situation] || situation
+}
+
+const getMotifLabel = (motif: string) => {
+  const motifMap: { [key: string]: string } = {
+    'maintenance': 'Améliorer la maintenance',
+    'transparency': 'Augmenter la transparence',
+    'recovery': 'Améliorer le recouvrement',
+    'supervision': 'Superviser le terrain',
+    'autre': 'Autre'
+  }
+  return motifMap[motif] || motif
+}
+
 export default function AdminFormsPage() {
   const { user, logout } = useAuth()
   const router = useRouter()
@@ -100,7 +133,11 @@ export default function AdminFormsPage() {
           {/* Liste des formulaires */}
           <div className="space-y-4">
             {forms.map((form) => (
-              <Card key={form.id} className="hover:shadow-lg transition-shadow">
+              <Card 
+                key={form.id} 
+                className="hover:shadow-lg transition-shadow cursor-pointer"
+                onClick={() => setSelectedForm(form)}
+              >
                 <CardContent className="pt-6">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
@@ -113,8 +150,29 @@ export default function AdminFormsPage() {
                             {form.identity?.name || 'Personne inconnue'}
                           </h3>
                           <p className="text-sm text-muted-foreground">
-                            {form.identity?.role || 'Rôle non spécifié'} • {form.building?.name || 'Bâtiment inconnu'}
+                            {getRoleLabel(form.identity?.role) || 'Rôle non spécifié'} • {form.building?.name || 'Bâtiment inconnu'}
                           </p>
+                          {/* Afficher les options principales */}
+                          {(() => {
+                            const desc = form.building?.description;
+                            const situationMatch = desc?.match(/Situation: ([^,]+)/);
+                            const motifMatch = desc?.match(/Motif: (.+)/);
+                            
+                            return (
+                              <div className="flex gap-2 mt-1">
+                                {situationMatch && (
+                                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                                    {getSituationLabel(situationMatch[1].trim())}
+                                  </span>
+                                )}
+                                {motifMatch && (
+                                  <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                                    {getMotifLabel(motifMatch[1].trim())}
+                                  </span>
+                                )}
+                              </div>
+                            );
+                          })()}
                         </div>
                       </div>
                       
@@ -135,13 +193,14 @@ export default function AdminFormsPage() {
                     </div>
                     
                     <div className="flex items-center gap-2">
-                      <Badge variant={form.status === 'NEW' ? 'destructive' : 'secondary'}>
-                        {form.status}
-                      </Badge>
+                      
                       <Button 
                         variant="outline" 
                         size="sm"
-                        onClick={() => setSelectedForm(form)}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setSelectedForm(form)
+                        }}
                       >
                         <Eye className="w-4 h-4 mr-2" />
                         Afficher les détails
@@ -191,7 +250,7 @@ export default function AdminFormsPage() {
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                       <div><strong>Nom:</strong> {selectedForm.identity?.name || 'Non fourni'}</div>
-                      <div><strong>Rôle:</strong> {selectedForm.identity?.role || 'Non fourni'}</div>
+                      <div><strong>Rôle:</strong> {getRoleLabel(selectedForm.identity?.role) || 'Non fourni'}</div>
                       <div><strong>Email:</strong> {selectedForm.identity?.email || 'Non fourni'}</div>
                       <div><strong>Téléphone:</strong> {selectedForm.identity?.phone || 'Non fourni'}</div>
                     </div>
@@ -212,6 +271,23 @@ export default function AdminFormsPage() {
                     {selectedForm.building?.description && (
                       <div className="mt-3">
                         <strong>Description:</strong> {selectedForm.building.description}
+                        {/* Extraire et afficher les options */}
+                        {(() => {
+                          const desc = selectedForm.building.description;
+                          const situationMatch = desc.match(/Situation: ([^,]+)/);
+                          const motifMatch = desc.match(/Motif: (.+)/);
+                          
+                          return (
+                            <div className="mt-2 space-y-1">
+                              {situationMatch && (
+                                <div><strong>Situation:</strong> {getSituationLabel(situationMatch[1].trim())}</div>
+                              )}
+                              {motifMatch && (
+                                <div><strong>Motif:</strong> {getMotifLabel(motifMatch[1].trim())}</div>
+                              )}
+                            </div>
+                          );
+                        })()}
                       </div>
                     )}
                   </div>
@@ -238,11 +314,7 @@ export default function AdminFormsPage() {
                   <div className="bg-gray-50 rounded-lg p-4">
                     <h3 className="font-semibold mb-3">📅 Métadonnées</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                      <div><strong>Statut:</strong> 
-                        <Badge variant={selectedForm.status === 'NEW' ? 'destructive' : 'secondary'} className="ml-2">
-                          {selectedForm.status}
-                        </Badge>
-                      </div>
+                      
                       <div><strong>Soumis le:</strong> {new Date(selectedForm.createdAt).toLocaleString('fr-FR')}</div>
                     </div>
                   </div>

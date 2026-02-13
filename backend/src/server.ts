@@ -157,6 +157,8 @@ app.get('/api/admin/contact-forms', async (_req: express.Request, res: express.R
     const contactForms = await prisma.contactForm.findMany({
       orderBy: { createdAt: 'desc' }
     });
+    
+    console.log('📤 Données récupérées de la DB:', JSON.stringify(contactForms, null, 2));
     res.json(contactForms);
   } catch (error: unknown) {
     console.error('Error fetching contact forms:', error);
@@ -169,6 +171,8 @@ app.post('/api/contact/submit', async (req: express.Request, res: express.Respon
   try {
     const { building, request, identity } = req.body;
 
+    console.log('📥 Données reçues:', JSON.stringify({ building, request, identity }, null, 2));
+
     const contactForm = await prisma.contactForm.create({
       data: {
         building,
@@ -178,6 +182,7 @@ app.post('/api/contact/submit', async (req: express.Request, res: express.Respon
       }
     });
 
+    console.log('💾 Données stockées:', JSON.stringify(contactForm, null, 2));
     console.log('✅ Contact form saved:', contactForm.id);
     res.status(201).json({
       message: 'Form submitted successfully',
