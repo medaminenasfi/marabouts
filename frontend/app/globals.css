@@ -124,22 +124,59 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    /* Responsive font sizes */
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    line-height: 1.6;
   }
   
   h1 {
-    @apply font-heading font-bold text-5xl leading-tight tracking-tight;
+    @apply font-heading font-bold leading-tight tracking-tight;
+    /* Responsive h1: 2xl → 3xl → 4xl → 5xl */
+    font-size: clamp(1.5rem, 5vw, 3rem);
   }
   
   h2 {
-    @apply font-heading font-bold text-4xl leading-tight tracking-tight;
+    @apply font-heading font-bold leading-tight tracking-tight;
+    /* Responsive h2: xl → 2xl → 3xl → 4xl */
+    font-size: clamp(1.25rem, 4vw, 2.25rem);
   }
   
   h3 {
-    @apply font-heading font-semibold text-2xl leading-8 tracking-tight;
+    @apply font-heading font-semibold leading-tight tracking-tight;
+    /* Responsive h3: lg → xl → 2xl → 3xl */
+    font-size: clamp(1.125rem, 3.5vw, 1.875rem);
   }
   
   p {
-    @apply text-base leading-relaxed;
+    @apply leading-relaxed;
+    /* Responsive p: sm → base → lg */
+    font-size: clamp(0.875rem, 2.5vw, 1.125rem);
+  }
+  
+  /* Responsive spacing */
+  .container-responsive {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 5vw, 2rem);
+  }
+  
+  /* Responsive grid */
+  .grid-responsive {
+    display: grid;
+    gap: clamp(1rem, 3vw, 2rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  }
+  
+  /* Responsive sections */
+  .section-responsive {
+    padding: clamp(2rem, 5vw, 4rem) 0;
+  }
+  
+  /* Responsive cards */
+  .card-responsive {
+    padding: clamp(1rem, 3vw, 2rem);
+    border-radius: clamp(0.5rem, 2vw, 0.75rem);
   }
 }
 

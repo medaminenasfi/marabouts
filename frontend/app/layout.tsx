@@ -28,6 +28,10 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: '#0B5D43',
   userScalable: true,
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
 }
 
 export default function RootLayout({
@@ -37,7 +41,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr" style={{ colorScheme: 'light' }}>
-      <body className={`${spaceGrotesk.variable} ${inter.variable} font-sans antialiased bg-background text-foreground`}>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+      </head>
+      <body 
+        className={`${spaceGrotesk.variable} ${inter.variable} font-sans antialiased bg-background text-foreground`}
+        suppressHydrationWarning={true}
+      >
         <AuthProvider>
           {children}
         </AuthProvider>

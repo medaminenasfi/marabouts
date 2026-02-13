@@ -9,7 +9,7 @@ import { CheckCircle2, AlertCircle, Loader2, Calendar, X } from 'lucide-react'
 import { apiClient } from '@/lib/api-client'
 import { useScrollAnimation } from '@/hooks/use-scroll-animation'
 
-type FormStep = 'building' | 'request' | 'identity' | 'confirmation'
+type FormStep = 'building' | 'request' | 'identity' | 'loading' | 'confirmation'
 
 interface FormData {
   residenceName: string
@@ -82,6 +82,7 @@ export function ContactForm() {
   const handleSubmit = async () => {
     setIsSubmitting(true)
     setError('')
+    setStep('loading')
 
     try {
       // Submit contact form to backend
@@ -118,6 +119,7 @@ export function ContactForm() {
     } catch (err: any) {
       console.error('Form submission error:', err)
       setError(err.message || 'Une erreur est survenue lors de l\'envoi de votre demande. Veuillez réessayer.')
+      setStep('identity') // Retour à l'étape précédente en cas d'erreur
     } finally {
       setIsSubmitting(false)
     }
@@ -279,18 +281,25 @@ export function ContactForm() {
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Situation actuelle
                 </label>
-                <select
-                  name="situation"
-                  value={formData.situation}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  <option value="">Sélectionnez une option</option>
-                  <option value="gestion">Déjà en gestion externe</option>
-                  <option value="auto">Auto-gestion</option>
-                  <option value="change">Changement de syndic</option>
-                  <option value="autres">Autres</option>
-                </select>
+                <div className="relative">
+                  <select
+                    name="situation"
+                    value={formData.situation}
+                    onChange={handleChange}
+                    className="w-full px-4 py-4 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-foreground cursor-pointer text-base"
+                  >
+                    <option value="">Sélectionnez une option</option>
+                    <option value="gestion">Déjà en gestion externe</option>
+                    <option value="auto">Auto-gestion</option>
+                    <option value="change">Changement de syndic</option>
+                    <option value="autres">Autres</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
                 {formData.situation === 'autres' && (
                   <div className="mt-2">
                     <Input
@@ -317,19 +326,26 @@ export function ContactForm() {
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Motif principal <span className="text-red-500">*</span>
                 </label>
-                <select
-                  name="motif"
-                  value={formData.motif}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  <option value="">Sélectionnez un motif</option>
-                  <option value="maintenance">Améliorer la maintenance</option>
-                  <option value="transparency">Augmenter la transparence</option>
-                  <option value="recovery">Améliorer le recouvrement</option>
-                  <option value="supervision">Superviser le terrain</option>
-                  <option value="autre">Autre</option>
-                </select>
+                <div className="relative">
+                  <select
+                    name="motif"
+                    value={formData.motif}
+                    onChange={handleChange}
+                    className="w-full px-4 py-4 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-foreground cursor-pointer text-base"
+                  >
+                    <option value="">Sélectionnez un motif</option>
+                    <option value="maintenance">Améliorer la maintenance</option>
+                    <option value="transparency">Augmenter la transparence</option>
+                    <option value="recovery">Améliorer le recouvrement</option>
+                    <option value="supervision">Superviser le terrain</option>
+                    <option value="autre">Autre</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
                 {formData.motif === 'autre' && (
                   <div className="mt-2">
                     <Input
@@ -368,19 +384,26 @@ export function ContactForm() {
                 <label className="block text-sm font-medium text-foreground mb-2">
                   Rôle <span className="text-red-500">*</span>
                 </label>
-                <select
-                  name="role"
-                  value={formData.role}
-                  onChange={handleChange}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  <option value="">Sélectionnez votre rôle</option>
-                  <option value="president">Président du syndic</option>
-                  <option value="tresorier">Trésorier</option>
-                  <option value="resident">Résident</option>
-                  <option value="promoter">Promoteur immobilier</option>
-                  <option value="other">Autre</option>
-                </select>
+                <div className="relative">
+                  <select
+                    name="role"
+                    value={formData.role}
+                    onChange={handleChange}
+                    className="w-full px-4 py-4 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white text-foreground cursor-pointer text-base"
+                  >
+                    <option value="">Sélectionnez votre rôle</option>
+                    <option value="president">Président du syndic</option>
+                    <option value="tresorier">Trésorier</option>
+                    <option value="resident">Résident</option>
+                    <option value="promoter">Promoteur immobilier</option>
+                    <option value="other">Autre</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
                 {formData.role === 'other' && (
                   <div className="mt-2">
                     <Input
@@ -439,7 +462,20 @@ export function ContactForm() {
             </div>
           )}
 
-          {/* Step 4: Confirmation */}
+          {/* Step 4: Loading */}
+          {step === 'loading' && (
+            <div className="text-center py-12">
+              <Loader2 className="w-16 h-16 text-primary mx-auto mb-6 animate-spin" />
+              <h3 className="font-heading font-semibold text-2xl text-foreground mb-4">
+                Envoi de votre demande en cours...
+              </h3>
+              <p className="text-muted-foreground text-lg">
+                Veuillez patienter pendant que nous traitons vos informations.
+              </p>
+            </div>
+          )}
+
+          {/* Step 5: Confirmation */}
           {step === 'confirmation' && (
             <div className="text-center py-12">
               <CheckCircle2 className="w-16 h-16 text-primary mx-auto mb-6" />

@@ -14,18 +14,20 @@ import { ScrollToTop } from '@/components/scroll-to-top'
 
 export default function Page() {
   return (
-    <div className="w-full">
+    <div className="w-full min-h-screen">
       <Header />
-      <Hero />
-      <ProblemsSection />
-      <SolutionSection />
-      <ServicesSection />
-      <ForWhoSection />
-      <ProcessSection />
-      <ResidencesSection />
-      <KpiSection />
-      <CtaSection />
-      <ContactForm />
+      <main>
+        <Hero />
+        <ProblemsSection />
+        <SolutionSection />
+        <ServicesSection />
+        <ForWhoSection />
+        <ProcessSection />
+        <ResidencesSection />
+        <KpiSection />
+        <CtaSection />
+        <ContactForm />
+      </main>
       <Footer />
       <ScrollToTop />
     </div>

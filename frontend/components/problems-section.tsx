@@ -29,11 +29,12 @@ const problems = [
 
 export function ProblemsSection() {
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation()
+  const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation()
 
   return (
     <section id="problems" className="py-20 px-6 bg-background">
       <div className="max-w-6xl mx-auto">
-        <div className={`text-center mb-12 scroll-fade-in ${sectionVisible ? 'visible' : ''}`}>
+        <div ref={sectionRef} className={`text-center mb-12 scroll-fade-in ${sectionVisible ? 'visible' : ''}`}>
           <div className="mb-4">
             <h1 className="font-heading font-bold text-2xl md:text-3xl text-primary/80 text-center mb-2 tracking-wider uppercase"> PROBLÈMES</h1>
             <h2 className="font-heading font-bold text-4xl md:text-5xl mb-4 text-foreground">
@@ -45,13 +46,13 @@ export function ProblemsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {problems.map((problem, index) => {
             const Icon = problem.icon
             return (
               <Card 
                 key={index} 
-                className={`problem-card group p-6 bg-white border border-border hover:border-destructive/30 hover:shadow-xl transition-all duration-300 hover:translate-y-[-4px] relative overflow-hidden ${sectionVisible ? 'visible' : ''}`}
+                className={`problem-card group p-6 bg-white border border-border hover:border-destructive/30 hover:shadow-xl transition-all duration-300 hover:translate-y-[-4px] relative overflow-hidden ${cardsVisible ? 'visible' : ''}`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="absolute top-0 right-0 w-24 h-24 bg-destructive/5 rounded-full blur-2xl transform translate-x-12 -translate-y-12 group-hover:scale-150 transition-transform duration-500" />
@@ -71,7 +72,7 @@ export function ProblemsSection() {
           })}
         </div>
 
-        <div ref={sectionRef} className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary/10 via-accent/5 to-primary/10 border border-primary/20 p-8 scroll-fade-in">
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-primary/10 via-accent/5 to-primary/10 border border-primary/20 p-8 scroll-fade-in">
           <div className={`relative flex items-center justify-center gap-4 ${sectionVisible ? 'visible' : ''}`}>
             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwQjVENDMiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iNyIgY3k9IjciIHI9IjEiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-50" />
             <div className="w-1 h-12 bg-gradient-to-b from-primary to-accent rounded-full" />
