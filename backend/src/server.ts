@@ -20,8 +20,8 @@ const prisma = new PrismaClient({ adapter }) as any; // Type assertion to bypass
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-console.log('🔧 Starting Marabouts Backend...');
-console.log(`📍 PORT: ${PORT}`);
+console.log(' Starting Marabouts Backend...');
+console.log(` PORT: ${PORT}`);
 
 // Middleware
 app.use(cors());
@@ -35,7 +35,7 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
 
 // Health check
 app.get('/api/health', (_req: express.Request, res: express.Response) => {
-  console.log('✅ Health check accessed');
+  console.log(' Health check accessed');
   res.json({
     status: 'OK',
     message: 'Marabouts Backend API is running',
@@ -78,7 +78,7 @@ app.post('/api/auth/register-admin', async (req: express.Request, res: express.R
 
     const { password: _, ...userWithoutPassword } = user;
 
-    console.log('✅ Admin registered:', email);
+    console.log(' Admin registered:', email);
     res.status(201).json({
       message: 'Admin created successfully',
       user: userWithoutPassword,
@@ -118,7 +118,7 @@ app.post('/api/auth/login', async (req: express.Request, res: express.Response) 
 
     const { password: _, ...userWithoutPassword } = user;
 
-    console.log('✅ Admin login successful for:', email);
+    console.log(' Admin login successful for:', email);
     res.json({
       message: 'Login successful',
       user: userWithoutPassword,
@@ -182,14 +182,14 @@ app.post('/api/contact/submit', async (req: express.Request, res: express.Respon
       }
     });
 
-    console.log('💾 Données stockées:', JSON.stringify(contactForm, null, 2));
-    console.log('✅ Contact form saved:', contactForm.id);
+    console.log(' Données stockées:', JSON.stringify(contactForm, null, 2));
+    console.log(' Contact form saved:', contactForm.id);
     res.status(201).json({
       message: 'Form submitted successfully',
       contactForm
     });
   } catch (error: unknown) {
-    console.error('❌ Error processing form:', error);
+    console.error(' Error processing form:', error);
     res.status(500).json({ error: 'Failed to process form' });
   }
 });
@@ -197,7 +197,7 @@ app.post('/api/contact/submit', async (req: express.Request, res: express.Respon
 // Calendly Webhook Endpoint
 app.post('/api/calendly/webhook', async (req: express.Request, res: express.Response) => {
   try {
-    console.log('📅 Webhook Calendly reçu:', req.body)
+    console.log(' Webhook Calendly reçu:', req.body)
     
     const { event, payload, source, timestamp } = req.body;
 
@@ -236,7 +236,7 @@ app.post('/api/calendly/webhook', async (req: express.Request, res: express.Resp
         timestamp ? new Date(timestamp) : new Date()
       ]);
 
-      console.log('✅ Rendez-vous enregistré:', result.rows[0]);
+      console.log(' Rendez-vous enregistré:', result.rows[0]);
 
       res.status(200).json({ 
         success: true, 
@@ -247,7 +247,7 @@ app.post('/api/calendly/webhook', async (req: express.Request, res: express.Resp
       res.status(200).json({ message: 'Événement non traité' });
     }
   } catch (error) {
-    console.error('❌ Erreur webhook Calendly:', error);
+    console.error(' Erreur webhook Calendly:', error);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
@@ -262,7 +262,7 @@ app.get('/api/calendly/events', async (_req: express.Request, res: express.Respo
 
     res.status(200).json(result.rows || []);
   } catch (error) {
-    console.error('❌ Erreur événements:', error);
+    console.error(' Erreur événements:', error);
     res.status(200).json([]);
   }
 });
@@ -286,7 +286,7 @@ app.get('/api/calendly/stats', async (_req: express.Request, res: express.Respon
 
     res.status(200).json(stats);
   } catch (error) {
-    console.error('❌ Erreur stats:', error);
+    console.error(' Erreur stats:', error);
     res.status(200).json({
       totalEvents: 0,
       upcomingEvents: 0,
@@ -322,7 +322,7 @@ app.post('/api/calendly/setup-table', async (_req: express.Request, res: express
       message: 'Table calendly_events créée' 
     });
   } catch (error) {
-    console.error('❌ Erreur création table:', error);
+    console.error(' Erreur création table:', error);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
@@ -334,34 +334,34 @@ app.use((_req: express.Request, res: express.Response) => {
 
 // Start server
 const server = app.listen(PORT, async () => {
-  console.log('🎉 =================================');
-  console.log(`🚀 Marabouts Backend running on port ${PORT}`);
-  console.log(`📊 Health: http://localhost:${PORT}/api/health`);
-  console.log(`👑 Register: POST /api/auth/register-admin`);
-  console.log(`🔐 Login: POST /api/auth/login`);
-  console.log(`📝 Contact: POST /api/contact/submit`);
-  console.log(`👥 Users: GET /api/admin/users`);
-  console.log(`📋 Forms: GET /api/admin/contact-forms`);
-  console.log('🎉 =================================');
+  console.log(' =================================');
+  console.log(` Marabouts Backend running on port ${PORT}`);
+  console.log(` Health: http://localhost:${PORT}/api/health`);
+  console.log(` Register: POST /api/auth/register-admin`);
+  console.log(` Login: POST /api/auth/login`);
+  console.log(` Contact: POST /api/contact/submit`);
+  console.log(` Users: GET /api/admin/users`);
+  console.log(` Forms: GET /api/admin/contact-forms`);
+  console.log(' =================================');
 
   try {
     await prisma.$connect();
-    console.log('✅ Database connected successfully');
+    console.log(' Database connected successfully');
   } catch (error) {
-    console.error('❌ Database connection failed:', error);
+    console.error(' Database connection failed:', error);
   }
 });
 
 server.on('error', (err: NodeJS.ErrnoException) => {
   if (err.code === 'EADDRINUSE') {
-    console.log(`⚠️  Port ${PORT} is already in use.`);
+    console.log(`  Port ${PORT} is already in use.`);
   } else {
-    console.error('❌ Server error:', err);
+    console.error(' Server error:', err);
   }
 });
 
 process.on('SIGINT', async () => {
-  console.log('🔄 Shutting down gracefully...');
+  console.log(' Shutting down gracefully...');
   await prisma.$disconnect();
   await pool.end();
   process.exit(0);
