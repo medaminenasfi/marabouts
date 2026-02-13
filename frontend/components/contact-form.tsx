@@ -376,12 +376,12 @@ export function ContactForm() {
 
           {/* Step 3: Identity */}
           {step === 'identity' && (
-            <div className="space-y-6">
-              <h3 className="font-heading font-semibold text-xl text-foreground mb-6">
+            <div className="space-y-4 sm:space-y-6">
+              <h3 className="font-heading font-semibold text-lg sm:text-xl text-foreground mb-4 sm:mb-6">
                 Étape 3 — Identité
               </h3>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-foreground mb-1 sm:mb-2">
                   Rôle <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
@@ -412,13 +412,13 @@ export function ContactForm() {
                       value={formData.roleOther}
                       onChange={handleChange}
                       placeholder="Précisez votre rôle..."
-                      className="rounded-lg"
+                      className="rounded-lg text-sm sm:text-base py-2 sm:py-3"
                     />
                   </div>
                 )}
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-foreground mb-1 sm:mb-2">
                   Nom complet <span className="text-red-500">*</span>
                 </label>
                 <Input
@@ -427,11 +427,11 @@ export function ContactForm() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Votre nom complet"
-                  className="rounded-lg"
+                  className="rounded-lg text-sm sm:text-base py-2 sm:py-3"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-foreground mb-1 sm:mb-2">
                   Téléphone <span className="text-red-500">*</span>
                 </label>
                 <Input
@@ -440,11 +440,11 @@ export function ContactForm() {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="06 12 34 56 78"
-                  className="rounded-lg"
+                  className="rounded-lg text-sm sm:text-base py-2 sm:py-3"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-foreground mb-1 sm:mb-2">
                   Email <span className="text-red-500">*</span>
                 </label>
                 <Input
@@ -453,7 +453,7 @@ export function ContactForm() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="votre@email.com"
-                  className="rounded-lg"
+                  className="rounded-lg text-sm sm:text-base py-2 sm:py-3"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
                   Format: nom@domaine.com
@@ -464,12 +464,12 @@ export function ContactForm() {
 
           {/* Step 4: Loading */}
           {step === 'loading' && (
-            <div className="text-center py-12">
-              <Loader2 className="w-16 h-16 text-primary mx-auto mb-6 animate-spin" />
-              <h3 className="font-heading font-semibold text-2xl text-foreground mb-4">
+            <div className="text-center py-8 sm:py-12">
+              <Loader2 className="w-12 h-12 sm:w-16 sm:h-16 text-primary mx-auto mb-4 sm:mb-6 animate-spin" />
+              <h3 className="font-heading font-semibold text-lg sm:text-2xl text-foreground mb-2 sm:mb-4">
                 Envoi de votre demande en cours...
               </h3>
-              <p className="text-muted-foreground text-lg">
+              <p className="text-muted-foreground text-sm sm:text-lg">
                 Veuillez patienter pendant que nous traitons vos informations.
               </p>
             </div>
@@ -477,21 +477,21 @@ export function ContactForm() {
 
           {/* Step 5: Confirmation */}
           {step === 'confirmation' && (
-            <div className="text-center py-12">
-              <CheckCircle2 className="w-16 h-16 text-primary mx-auto mb-6" />
-              <h3 className="font-heading font-semibold text-2xl text-foreground mb-4">
+            <div className="text-center py-8 sm:py-12">
+              <CheckCircle2 className="w-12 h-12 sm:w-16 sm:h-16 text-primary mx-auto mb-4 sm:mb-6" />
+              <h3 className="font-heading font-semibold text-lg sm:text-2xl text-foreground mb-2 sm:mb-4">
                 Votre demande est bien reçue
               </h3>
-              <p className="text-muted-foreground text-lg mb-8">
+              <p className="text-muted-foreground text-sm sm:text-lg mb-6 sm:mb-8">
                 Notre équipe vous contactera sous 24 heures pour discuter de votre projet.
               </p>
-              <p className="text-muted-foreground mb-8">
+              <p className="text-muted-foreground text-sm sm:text-lg mb-6 sm:mb-8">
                 En attendant, vous pouvez réserver un créneau pour une consultation directe.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                 <Button
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold px-8"
+                  className="bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base"
                   onClick={() => {
                     setStep('building')
                     setFormData({
@@ -516,7 +516,7 @@ export function ContactForm() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="rounded-lg font-semibold px-8"
+                  className="rounded-lg font-semibold px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base"
                   onClick={() => setShowCalendly(true)}
                 >
                   <Calendar className="w-4 h-4 mr-2" />
@@ -560,8 +560,8 @@ export function ContactForm() {
       {showCalendly && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl">
-            <div className="flex items-center justify-between p-4 border-b">
-              <h3 className="text-lg font-semibold text-foreground">Réserver un créneau de consultation</h3>
+            <div className="flex items-center justify-between p-3 sm:p-4 border-b">
+              <h3 className="text-base sm:text-lg font-semibold text-foreground">Réserver un créneau de consultation</h3>
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -571,13 +571,13 @@ export function ContactForm() {
                 <X className="h-4 w-4" />
               </Button>
             </div>
-            <div className="h-[600px] overflow-auto">
+            <div className="h-[500px] sm:h-[600px] overflow-auto">
               <iframe 
                 src={process.env.NEXT_PUBLIC_CALENDLY_URL + "?embed_domain=localhost%3A6001&embed_type=Inline&utm_source=marabouts-website&utm_medium=landing-page&utm_campaign=consultation-request"}
                 width="100%"
                 height="100%"
                 frameBorder="0"
-                className="min-h-[600px]"
+                className="min-h-[500px] sm:min-h-[600px]"
               />
             </div>
           </div>
