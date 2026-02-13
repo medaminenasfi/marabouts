@@ -72,9 +72,14 @@ export function ResidencesSection() {
   return (
     <section className="py-20 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
-        <h2 className="font-heading font-bold text-4xl text-foreground mb-12">
-          Les résidences qui nous font confiance
-        </h2>
+        <div className="text-center mb-12">
+          <div className="mb-4">
+            <h1 className="font-heading font-bold text-2xl md:text-3xl text-primary/80 text-center mb-2 tracking-wider uppercase">RÉSIDENCES GÉRÉES</h1>
+            <h2 className="font-heading font-bold text-4xl text-foreground mb-12">
+              Les résidences qui nous font confiance
+            </h2>
+          </div>
+        </div>
 
         {/* Carousel */}
         <div className="relative mb-12">

@@ -27,11 +27,14 @@ export function ForWhoSection() {
     <section id="for-who" className="py-20 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-4">
-            Une solution adaptée à chaque acteur
-          </h2>
+          <div className="mb-4">
+            <h1 className="font-heading font-bold text-2xl md:text-3xl text-primary/80 text-center mb-2 tracking-wider uppercase">POUR QUI ?</h1>
+            <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-4">
+              Une solution adaptée à chaque acteur
+            </h2>
+          </div>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Des services personnalisés pour répondre aux besoins de tous
+            Une approche sur mesure pour chaque type de client
           </p>
         </div>
 

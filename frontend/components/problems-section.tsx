@@ -34,9 +34,12 @@ export function ProblemsSection() {
     <section id="problems" className="py-20 px-6 bg-background">
       <div className="max-w-6xl mx-auto">
         <div className={`text-center mb-12 scroll-fade-in ${sectionVisible ? 'visible' : ''}`}>
-          <h2 className="font-heading font-bold text-4xl md:text-5xl mb-4 text-foreground">
-            Ce que vivent trop de copropriétés
-          </h2>
+          <div className="mb-4">
+            <h1 className="font-heading font-bold text-2xl md:text-3xl text-primary/80 text-center mb-2 tracking-wider uppercase"> PROBLÈMES</h1>
+            <h2 className="font-heading font-bold text-4xl md:text-5xl mb-4 text-foreground">
+              Ce que vivent trop de copropriétés
+            </h2>
+          </div>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Des problématiques récurrentes qui impactent la valeur de votre patrimoine
           </p>

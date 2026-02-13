@@ -24,9 +24,12 @@ export function ProcessSection() {
     <section id="process" className="py-20 px-6 bg-background">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-4">
-            Comment nous prenons en charge votre copropriété
-          </h2>
+          <div className="mb-4">
+            <h1 className="font-heading font-bold text-2xl md:text-3xl text-primary/80 text-center mb-2 tracking-wider uppercase">PROCESSUS</h1>
+            <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-4">
+              Comment nous prenons en charge votre copropriété
+            </h2>
+          </div>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Un processus structuré en 4 étapes pour une transition en douceur
           </p>
