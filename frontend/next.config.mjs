@@ -2,6 +2,11 @@
 const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
+  },
+  images: {
+    remotePatterns: [],
+    domains: [],
+    unoptimized: true
   }
 }
 

@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Calendar, X } from 'lucide-react'
+import Link from 'next/link'
+import { SmoothScrollLink } from '@/components/smooth-scroll-link'
 
 export function CtaSection() {
   const [showCalendly, setShowCalendly] = useState(false)
@@ -34,10 +36,12 @@ export function CtaSection() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-lg font-semibold px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5 group">
-                  Demander un devis
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-                </Button>
+                <SmoothScrollLink href="#contact">
+                  <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-lg font-semibold px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5 group">
+                    Demander un devis
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  </Button>
+                </SmoothScrollLink>
                 <Button 
                   size="lg" 
                   variant="outline" 

@@ -142,3 +142,73 @@ body {
     @apply text-base leading-relaxed;
   }
 }
+
+/* Animations et micro-interactions */
+@layer utilities {
+  .transition-all-200 {
+    transition: all 200ms ease-out;
+  }
+  
+  .hover-lift {
+    transition: transform 200ms ease-out;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+  
+  .hover-lift-sm {
+    transition: transform 200ms ease-out;
+  }
+  
+  .hover-lift-sm:hover {
+    transform: translateY(-1px);
+  }
+  
+  .card-hover {
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(2,6,23,.12);
+  }
+  
+  .fade-in {
+    animation: fadeIn 300ms ease-out;
+  }
+  
+  .fade-in-up {
+    animation: fadeInUp 300ms ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Scroll smooth pour les ancres */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Offset pour les ancres (header sticky) */
+  .anchor-offset {
+    scroll-padding-top: 72px;
+  }
+}

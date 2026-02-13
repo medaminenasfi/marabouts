@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Eye, Wrench, DollarSign, Database } from 'lucide-react'
+import Link from 'next/link'
+import { SmoothScrollLink } from '@/components/smooth-scroll-link'
 
 const solutions = [
   {
@@ -71,9 +73,11 @@ export function SolutionSection() {
         </div>
 
         <div className="flex justify-center">
-          <Button size="lg" className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary text-white rounded-lg font-semibold px-10 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5">
-            Demander un audit
-          </Button>
+          <SmoothScrollLink href="#contact">
+            <Button size="lg" className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary text-white rounded-lg font-semibold px-10 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5">
+              Demander un audit
+            </Button>
+          </SmoothScrollLink>
         </div>
       </div>
     </section>

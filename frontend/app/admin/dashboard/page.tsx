@@ -84,20 +84,20 @@ export default function AdminDashboard() {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'URGENT': return 'bg-destructive text-white'
-      case 'HIGH': return 'bg-orange-500 text-white'
-      case 'MEDIUM': return 'bg-yellow-500 text-white'
-      case 'LOW': return 'bg-green-500 text-white'
-      default: return 'bg-gray-500 text-white'
+      case 'HIGH': return 'bg-warning text-white'
+      case 'MEDIUM': return 'bg-accent text-white'
+      case 'LOW': return 'bg-success text-white'
+      default: return 'bg-muted text-foreground'
     }
   }
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'OPEN': return 'bg-destructive/10 text-destructive border-destructive/20'
-      case 'IN_PROGRESS': return 'bg-yellow-100 text-yellow-800 border-yellow-200'
-      case 'RESOLVED': return 'bg-green-100 text-green-800 border-green-200'
-      case 'CLOSED': return 'bg-gray-100 text-gray-800 border-gray-200'
-      default: return 'bg-gray-100 text-gray-800 border-gray-200'
+      case 'IN_PROGRESS': return 'bg-warning/10 text-warning border-warning/20'
+      case 'RESOLVED': return 'bg-success/10 text-success border-success/20'
+      case 'CLOSED': return 'bg-muted text-muted-foreground border-border'
+      default: return 'bg-muted text-muted-foreground border-border'
     }
   }
 

@@ -161,12 +161,12 @@ export default function AdminFormsPage() {
                             return (
                               <div className="flex gap-2 mt-1">
                                 {situationMatch && (
-                                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                                  <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
                                     {getSituationLabel(situationMatch[1].trim())}
                                   </span>
                                 )}
                                 {motifMatch && (
-                                  <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                                  <span className="text-xs bg-accent/15 text-accent-foreground px-2 py-1 rounded">
                                     {getMotifLabel(motifMatch[1].trim())}
                                   </span>
                                 )}
@@ -243,9 +243,9 @@ export default function AdminFormsPage() {
 
                 <div className="space-y-6">
                   {/* Informations personnelles */}
-                  <div className="bg-blue-50 rounded-lg p-4">
+                  <div className="bg-primary/5 rounded-lg p-4 border border-primary/10">
                     <h3 className="font-semibold mb-3 flex items-center gap-2">
-                      <User className="w-5 h-5" />
+                      <User className="w-5 h-5 text-primary" />
                       Informations personnelles
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
@@ -257,9 +257,9 @@ export default function AdminFormsPage() {
                   </div>
 
                   {/* Informations du bâtiment */}
-                  <div className="bg-green-50 rounded-lg p-4">
+                  <div className="bg-accent/5 rounded-lg p-4 border border-accent/10">
                     <h3 className="font-semibold mb-3 flex items-center gap-2">
-                      <Building2 className="w-5 h-5" />
+                      <Building2 className="w-5 h-5 text-accent-foreground" />
                       Informations du bâtiment
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
@@ -293,7 +293,7 @@ export default function AdminFormsPage() {
                   </div>
 
                   {/* Détails de la demande */}
-                  <div className="bg-orange-50 rounded-lg p-4">
+                  <div className="bg-warning/5 rounded-lg p-4 border border-warning/20">
                     <h3 className="font-semibold mb-3">📝 Détails de la demande</h3>
                     <div className="space-y-2 text-sm">
                       <div><strong>Sujet:</strong> {selectedForm.request?.subject || 'Non fourni'}</div>
@@ -311,7 +311,7 @@ export default function AdminFormsPage() {
                   </div>
 
                   {/* Métadonnées */}
-                  <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="bg-muted rounded-lg p-4 border border-border">
                     <h3 className="font-semibold mb-3">📅 Métadonnées</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                       

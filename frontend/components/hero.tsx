@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { CheckCircle2, X } from 'lucide-react'
 import Link from 'next/link'
+import { SmoothScrollLink } from '@/components/smooth-scroll-link'
 
 export function Hero() {
   const [showCalendly, setShowCalendly] = useState(false)
@@ -78,11 +79,11 @@ export function Hero() {
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="#contact">
+          <SmoothScrollLink href="#contact">
             <Button size="lg" className="bg-primary hover:bg-primary-dark text-white rounded-lg font-semibold px-8 transition-all duration-200 hover:-translate-y-0.5">
               Demander un devis
             </Button>
-          </Link>
+          </SmoothScrollLink>
           <Button 
             size="lg" 
             variant="outline" 
