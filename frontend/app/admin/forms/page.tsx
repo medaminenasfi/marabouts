@@ -31,9 +31,9 @@ const getRoleLabel = (role: string) => {
     'other': 'Autre'
   }
   
-  // Handle "Autre: custom text" format
+  // Handle "Autre: custom text" format - show only custom text
   if (role?.startsWith('Autre:')) {
-    return role
+    return role.replace('Autre: ', '')
   }
   
   return roleMap[role] || role
@@ -47,9 +47,9 @@ const getSituationLabel = (situation: string) => {
     'autres': 'Autres'
   }
   
-  // Handle "Autres: custom text" format
+  // Handle "Autres: custom text" format - show only custom text
   if (situation?.startsWith('Autres:')) {
-    return situation
+    return situation.replace('Autres: ', '')
   }
   
   return situationMap[situation] || situation
@@ -64,9 +64,9 @@ const getMotifLabel = (motif: string) => {
     'autre': 'Autre'
   }
   
-  // Handle "Autre: custom text" format
+  // Handle "Autre: custom text" format - show only custom text
   if (motif?.startsWith('Autre:')) {
-    return motif
+    return motif.replace('Autre: ', '')
   }
   
   return motifMap[motif] || motif
@@ -265,25 +265,12 @@ export default function AdminFormsPage() {
                 </div>
 
                 <div className="space-y-6">
-                  {/* Informations personnelles */}
-                  <div className="bg-primary/5 rounded-lg p-4 border border-primary/10">
-                    <h3 className="font-semibold mb-3 flex items-center gap-2">
-                      <User className="w-5 h-5 text-primary" />
-                      Informations personnelles
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                      <div><strong>Nom:</strong> {selectedForm.identity?.name || 'Non fourni'}</div>
-                      <div><strong>Rôle:</strong> {getRoleLabel(selectedForm.identity?.role) || 'Non fourni'}</div>
-                      <div><strong>Email:</strong> {selectedForm.identity?.email || 'Non fourni'}</div>
-                      <div><strong>Téléphone:</strong> {selectedForm.identity?.phone || 'Non fourni'}</div>
-                    </div>
-                  </div>
-
-                  {/* Informations du bâtiment */}
+                  {/* Étape 1: Informations du bâtiment */}
                   <div className="bg-accent/5 rounded-lg p-4 border border-accent/10">
                     <h3 className="font-semibold mb-3 flex items-center gap-2">
                       <Building2 className="w-5 h-5 text-accent-foreground" />
-Informations immeuble                    </h3>
+                      Étape 1 — Informations du bâtiment
+                    </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                       <div><strong>Nom de la résidence :</strong> {selectedForm.building?.name || 'Non fourni'}</div>
                       <div><strong>Adresse:</strong> {selectedForm.building?.address || 'Non fourni'}</div>
@@ -294,7 +281,6 @@ Informations immeuble                    </h3>
                         <strong>Situation actuelle:</strong> {getSituationLabel(selectedForm.building.situation)}
                       </div>
                     )}
-                
                     {selectedForm.building?.description && (
                       <div className="mt-2">
                         <strong>Description:</strong> {selectedForm.building.description}
@@ -302,16 +288,16 @@ Informations immeuble                    </h3>
                     )}
                   </div>
 
-                  {/* Détails de la demande */}
+                  {/* Étape 2: Nature de la demande */}
                   <div className="bg-warning/5 rounded-lg p-4 border border-warning/20">
-                    <h3 className="font-semibold mb-3">📝 Nature de la demande</h3>
+                    <h3 className="font-semibold mb-3">📝 Étape 2 — Nature de la demande</h3>
                     <div className="space-y-2 text-sm">
                       <div><strong>Sujet:</strong> {selectedForm.request?.subject || 'Non fourni'}</div>
-                          {selectedForm.building?.motif && (
-                      <div className="mt-2">
-                        <strong>Motif:</strong> {getMotifLabel(selectedForm.building.motif)}
-                      </div>
-                    )}
+                      {selectedForm.building?.motif && (
+                        <div className="mt-2">
+                          <strong>Motif:</strong> {getMotifLabel(selectedForm.building.motif)}
+                        </div>
+                      )}
                       {selectedForm.request?.description && (
                         <div>
                           <strong>Description:</strong> {selectedForm.request.description}
@@ -320,11 +306,24 @@ Informations immeuble                    </h3>
                     </div>
                   </div>
 
+                  {/* Étape 3: Informations personnelles */}
+                  <div className="bg-primary/5 rounded-lg p-4 border border-primary/10">
+                    <h3 className="font-semibold mb-3 flex items-center gap-2">
+                      <User className="w-5 h-5 text-primary" />
+                      Étape 3 — Informations personnelles
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                      <div><strong>Nom:</strong> {selectedForm.identity?.name || 'Non fourni'}</div>
+                      <div><strong>Rôle:</strong> {getRoleLabel(selectedForm.identity?.role) || 'Non fourni'}</div>
+                      <div><strong>Email:</strong> {selectedForm.identity?.email || 'Non fourni'}</div>
+                      <div><strong>Téléphone:</strong> {selectedForm.identity?.phone || 'Non fourni'}</div>
+                    </div>
+                  </div>
+
                   {/* Métadonnées */}
                   <div className="bg-muted rounded-lg p-4 border border-border">
                     <h3 className="font-semibold mb-3">📅 Métadonnées</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                      
                       <div><strong>Soumis le:</strong> {new Date(selectedForm.createdAt).toLocaleString('fr-FR')}</div>
                     </div>
                   </div>
