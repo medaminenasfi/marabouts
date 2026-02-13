@@ -6,32 +6,32 @@ import { useEffect, useRef, useState } from 'react'
 
 const residences = [
   {
-    name: 'Residence Soleil',
-    location: 'Paris 16ème',
+    name: 'Résidence Les Jardins',
+    location: 'Tunis, El Menzah',
     units: 24,
     image: '/assests/residence-1.jpg',
   },
   {
-    name: 'Parc Verdure',
-    location: 'Boulogne-Billancourt',
+    name: 'Parc du Lac',
+    location: 'Tunis, Les Berges du Lac',
     units: 32,
     image: '/assests/residence-2.jpg',
   },
   {
-    name: 'Les Terrasses',
-    location: 'Neuilly-sur-Seine',
+    name: 'Les Palmiers',
+    location: 'Sousse, Centre Ville',
     units: 18,
     image: '/assests/residence-3.jpg',
   },
   {
-    name: 'Villa Prestige',
-    location: 'Saint-Cloud',
+    name: 'Résidence Carthage',
+    location: 'Carthage, Byrsa',
     units: 28,
     image: '/assests/residence-1.jpg',
   },
   {
-    name: 'Residence Lumière',
-    location: 'Versailles',
+    name: 'El Manar Premium',
+    location: 'Tunis, El Manar',
     units: 22,
     image: '/assests/residence-2.jpg',
   },
