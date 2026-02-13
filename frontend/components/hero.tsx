@@ -6,9 +6,14 @@ import { Button } from '@/components/ui/button'
 import { CheckCircle2, X } from 'lucide-react'
 import Link from 'next/link'
 import { SmoothScrollLink } from '@/components/smooth-scroll-link'
+import { useScrollAnimation } from '@/hooks/use-scroll-animation'
 
 export function Hero() {
   const [showCalendly, setShowCalendly] = useState(false)
+  const { ref: heroRef, isVisible: heroVisible } = useScrollAnimation()
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation()
+  const { ref: badgeRef, isVisible: badgeVisible } = useScrollAnimation()
+  const { ref: buttonsRef, isVisible: buttonsVisible } = useScrollAnimation()
 
   const openCalendly = () => {
     setShowCalendly(true)
@@ -42,9 +47,9 @@ export function Hero() {
         <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <div ref={heroRef} className="relative z-10 max-w-5xl mx-auto px-6 text-center">
         {/* Badge */}
-        <div className="flex justify-center mb-6">
+        <div ref={badgeRef} className={`flex justify-center mb-6 scroll-fade-in ${badgeVisible ? 'visible' : ''}`} style={{ transitionDelay: '100ms' }}>
           <Badge variant="outline" className="bg-accent/15 text-accent-foreground border-accent/30 px-4 py-2 rounded-full">
             <span className="inline-block w-2 h-2 bg-accent rounded-full mr-2" />
             Supervision terrain 7j/7 • Gestion structurée • Transparence totale
@@ -52,17 +57,19 @@ export function Hero() {
         </div>
 
         {/* Heading */}
-        <h1 className="font-heading font-bold text-5xl md:text-6xl leading-tight tracking-tight text-foreground mb-6 text-balance">
-          La gestion de syndic professionnelle, transparente et réactive
-        </h1>
+        <div ref={contentRef} className={`scroll-fade-in ${contentVisible ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
+          <h1 className="font-heading font-bold text-5xl md:text-6xl leading-tight tracking-tight text-foreground mb-6 text-balance">
+            La gestion de syndic professionnelle, transparente et réactive
+          </h1>
 
-        {/* Subheading */}
-        <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto text-balance leading-relaxed">
-          Marabouts prend en charge l'intégralité de votre copropriété : gestion administrative, maintenance, recouvrement et organisation terrain — avec un système digital fiable.
-        </p>
+          {/* Subheading */}
+          <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto text-balance leading-relaxed">
+            Marabouts prend en charge l'intégralité de votre copropriété : gestion administrative, maintenance, recouvrement et organisation terrain — avec un système digital fiable.
+          </p>
+        </div>
 
         {/* Bullets */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 max-w-2xl mx-auto">
+        <div className={`grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 max-w-2xl mx-auto scroll-fade-in ${contentVisible ? 'visible' : ''}`} style={{ transitionDelay: '300ms' }}>
           <div className="flex items-start space-x-3">
             <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
             <span className="text-sm text-foreground">Superviseurs terrain présents 7j/7</span>
@@ -78,7 +85,7 @@ export function Hero() {
         </div>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div ref={buttonsRef} className={`flex flex-col sm:flex-row gap-4 justify-center scroll-fade-in ${buttonsVisible ? 'visible' : ''}`} style={{ transitionDelay: '400ms' }}>
           <SmoothScrollLink href="#contact">
             <Button size="lg" className="bg-primary hover:bg-primary-dark text-white rounded-lg font-semibold px-8 transition-all duration-200 hover:-translate-y-0.5">
               Demander un devis

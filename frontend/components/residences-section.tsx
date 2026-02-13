@@ -3,6 +3,7 @@
 import { Card } from '@/components/ui/card'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { useScrollAnimation } from '@/hooks/use-scroll-animation'
 
 const residences = [
   {
@@ -42,6 +43,8 @@ export function ResidencesSection() {
   const [isAutoScrolling, setIsAutoScrolling] = useState(true)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation()
+  const { ref: carouselRef, isVisible: carouselVisible } = useScrollAnimation()
 
   const scroll = (direction: 'left' | 'right') => {
     if (!scrollContainerRef.current) return
@@ -120,7 +123,7 @@ export function ResidencesSection() {
   return (
     <section className="py-20 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 scroll-fade-in ${sectionVisible ? 'visible' : ''}`} ref={sectionRef}>
           <div className="mb-4">
             <h1 className="font-heading font-bold text-2xl md:text-3xl text-primary/80 text-center mb-2 tracking-wider uppercase">RÉSIDENCES GÉRÉES</h1>
             <h2 className="font-heading font-bold text-4xl text-foreground mb-12">
@@ -130,7 +133,7 @@ export function ResidencesSection() {
         </div>
 
         {/* Carousel */}
-        <div className="relative mb-12">
+        <div ref={carouselRef} className={`relative mb-12 scroll-fade-in ${carouselVisible ? 'visible' : ''}`}>
           <div
             ref={scrollContainerRef}
             className="flex overflow-x-auto scroll-smooth gap-6 pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [-ms-overflow-style:none]"
@@ -139,7 +142,8 @@ export function ResidencesSection() {
             {residences.map((residence, index) => (
               <Card
                 key={index}
-                className="flex-shrink-0 w-80 overflow-hidden bg-white border border-border hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group"
+                className={`flex-shrink-0 w-80 overflow-hidden bg-white border border-border hover:shadow-xl hover:-translate-y-2 transition-all duration-300 group scroll-fade-in ${carouselVisible ? 'visible' : ''}`}
+                style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="w-full h-40 overflow-hidden">
                   <img 

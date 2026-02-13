@@ -1,5 +1,8 @@
+'use client'
+
 import { Card } from '@/components/ui/card'
 import { BarChart3, Hammer, Shield, Banknote } from 'lucide-react'
+import { useScrollAnimation } from '@/hooks/use-scroll-animation'
 
 const services = [
   {
@@ -25,10 +28,13 @@ const services = [
 ]
 
 export function ServicesSection() {
+  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation()
+  const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation()
+
   return (
     <section id="services" className="py-20 px-6 bg-background">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 scroll-fade-in ${sectionVisible ? 'visible' : ''}`} ref={sectionRef}>
           <div className="mb-4">
             <h1 className="font-heading font-bold text-2xl md:text-3xl text-primary/80 text-center mb-2 tracking-wider uppercase"> SERVICES</h1>
             <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-4 text-center">
@@ -40,13 +46,14 @@ export function ServicesSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon
             return (
               <Card
                 key={index}
-                className="group relative p-8 bg-white border border-border hover:border-primary/30 hover:shadow-2xl transition-all duration-300 hover:translate-y-[-4px] overflow-hidden"
+                className={`group relative p-8 bg-white border border-border hover:border-primary/30 hover:shadow-2xl transition-all duration-300 hover:translate-y-[-4px] overflow-hidden scroll-fade-in ${cardsVisible ? 'visible' : ''}`}
+                style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/5 to-accent/5 rounded-full blur-2xl transform translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-500" />
                 <div className="relative">

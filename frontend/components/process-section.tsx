@@ -1,4 +1,7 @@
+'use client'
+
 import { CheckCircle2 } from 'lucide-react'
+import { useScrollAnimation } from '@/hooks/use-scroll-animation'
 
 const steps = [
   {
@@ -20,10 +23,13 @@ const steps = [
 ]
 
 export function ProcessSection() {
+  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation()
+  const { ref: stepsRef, isVisible: stepsVisible } = useScrollAnimation()
+
   return (
     <section id="process" className="py-20 px-6 bg-background">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 scroll-fade-in ${sectionVisible ? 'visible' : ''}`} ref={sectionRef}>
           <div className="mb-4">
             <h1 className="font-heading font-bold text-2xl md:text-3xl text-primary/80 text-center mb-2 tracking-wider uppercase">PROCESSUS</h1>
             <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-4">
@@ -35,7 +41,7 @@ export function ProcessSection() {
           </p>
         </div>
 
-        <div className="relative">
+        <div ref={stepsRef} className="relative">
           {/* Connection line */}
           <div className="hidden md:block absolute top-10 left-0 right-0 h-0.5">
             <div className="h-full bg-gradient-to-r from-transparent via-primary to-transparent opacity-30" />
@@ -43,7 +49,7 @@ export function ProcessSection() {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
             {steps.map((step, index) => (
-              <div key={index} className="group flex flex-col items-center">
+              <div key={index} className={`group flex flex-col items-center scroll-fade-in ${stepsVisible ? 'visible' : ''}`} style={{ transitionDelay: `${index * 200}ms` }}>
                 <div className="mb-6 flex items-center justify-center">
                   <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center shadow-xl group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
                     <span className="font-heading font-bold text-3xl text-white relative z-10">

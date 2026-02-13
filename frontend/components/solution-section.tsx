@@ -1,7 +1,10 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { Eye, Wrench, DollarSign, Database } from 'lucide-react'
 import Link from 'next/link'
 import { SmoothScrollLink } from '@/components/smooth-scroll-link'
+import { useScrollAnimation } from '@/hooks/use-scroll-animation'
 
 const solutions = [
   {
@@ -31,10 +34,13 @@ const solutions = [
 ]
 
 export function SolutionSection() {
+  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation()
+  const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation()
+
   return (
     <section id="solution" className="py-20 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
+        <div className={`text-center mb-12 scroll-fade-in ${sectionVisible ? 'visible' : ''}`} ref={sectionRef}>
           <div className="mb-4">
             <h1 className="font-heading font-bold text-2xl md:text-3xl text-primary/80 text-center mb-2 tracking-wider uppercase">SOLUTION MARABOUTS</h1>
             <h2 className="font-heading font-bold text-4xl md:text-5xl text-foreground mb-4">
@@ -46,11 +52,11 @@ export function SolutionSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           {solutions.map((solution, index) => {
             const Icon = solution.icon
             return (
-              <div key={index} className="group flex gap-6 p-6 rounded-2xl border border-border bg-gradient-to-br from-white to-primary/5 hover:border-primary/30 hover:shadow-xl transition-all duration-300 hover:translate-x-2">
+              <div key={index} className={`group flex gap-6 p-6 rounded-2xl border border-border bg-gradient-to-br from-white to-primary/5 hover:border-primary/30 hover:shadow-xl transition-all duration-300 hover:translate-x-2 scroll-fade-in ${cardsVisible ? 'visible' : ''}`} style={{ transitionDelay: `${index * 150}ms` }}>
                 <div className="flex-shrink-0">
                   <div className="relative flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary-dark shadow-lg group-hover:scale-110 transition-transform duration-300">
                     <span className="font-heading font-bold text-xl text-white">

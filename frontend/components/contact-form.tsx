@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card } from '@/components/ui/card'
 import { CheckCircle2, AlertCircle, Loader2, Calendar, X } from 'lucide-react'
 import { apiClient } from '@/lib/api-client'
+import { useScrollAnimation } from '@/hooks/use-scroll-animation'
 
 type FormStep = 'building' | 'request' | 'identity' | 'confirmation'
 
@@ -25,7 +26,6 @@ interface FormData {
 
 export function ContactForm() {
   const [step, setStep] = useState<FormStep>('building')
-  const [showCalendly, setShowCalendly] = useState(false)
   const [formData, setFormData] = useState<FormData>({
     residenceName: '',
     address: '',
@@ -35,11 +35,14 @@ export function ContactForm() {
     description: '',
     role: '',
     name: '',
-    phone: '',
     email: '',
+    phone: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [showCalendly, setShowCalendly] = useState(false)
   const [error, setError] = useState('')
+  const { ref: formRef, isVisible: formVisible } = useScrollAnimation()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -166,12 +169,14 @@ export function ContactForm() {
   return (
     <section id="contact" className="py-20 px-6 bg-white">
       <div className="max-w-2xl mx-auto">
-        <h2 className="font-heading font-bold text-4xl text-foreground text-center mb-4">
-          Obtenez votre devis personnalisé
-        </h2>
-        <p className="text-center text-muted-foreground mb-12">
-          Remplissez le formulaire ci-dessous pour recevoir une proposition adaptée à votre résidence.
-        </p>
+        <div className={`text-center mb-12 scroll-fade-in ${formVisible ? 'visible' : ''}`} ref={formRef}>
+          <h2 className="font-heading font-bold text-4xl text-foreground text-center mb-4">
+            Obtenez votre devis personnalisé
+          </h2>
+          <p className="text-center text-muted-foreground mb-12">
+            Remplissez le formulaire ci-dessous pour recevoir une proposition adaptée à votre résidence.
+          </p>
+        </div>
 
         {/* Step Indicator */}
         <div className="flex justify-between mb-10">
@@ -200,7 +205,7 @@ export function ContactForm() {
         </div>
 
         {/* Form Content */}
-        <Card className="p-8 bg-background border border-border">
+        <Card className={`p-8 bg-background border border-border scroll-fade-in ${formVisible ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
           {/* Error Display */}
           {error && (
             <div className="mb-6 flex items-center gap-3 p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive">
