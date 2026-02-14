@@ -8,7 +8,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { AlertCircle, Eye, EyeOff, Shield, X } from 'lucide-react'
-import { Logo } from '@/components/logo'
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('')
@@ -28,6 +27,7 @@ export default function AdminLoginPage() {
     e.preventDefault()
     setError('')
     setIsLoading(true)
+
 
     try {
       await login(email, password)

@@ -18,9 +18,6 @@ class ApiClient {
       ? localStorage.getItem('auth_token') 
       : null
 
-    console.log(`🌐 API Request: ${options.method || 'GET'} ${url}`)
-    console.log(`🔐 Token exists: ${!!token}`)
-
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       ...(options.headers as Record<string, string> || {}),
@@ -38,19 +35,16 @@ class ApiClient {
     try {
       const response = await fetch(url, config)
       
-      console.log(`📡 Response status: ${response.status}`)
-      
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
-        console.error(`❌ API Error: ${response.status} - ${errorData.error || 'Unknown error'}`)
+        console.error('ERROR: API request failed')
         throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
       }
 
       const data = await response.json()
-      console.log(`✅ API Success: ${endpoint}`)
       return data
     } catch (error) {
-      console.error('❌ API request failed:', error)
+      console.error('ERROR: Network request failed')
       throw error
     }
   }

@@ -306,7 +306,7 @@ export function ContactForm() {
                     </svg>
                   </div>
                 </div>
-                {formData.situation === 'autres' && (
+                {formData.situation === 'autre' && (
                   <div className="mt-2">
                     <Input
                       type="text"
@@ -314,7 +314,7 @@ export function ContactForm() {
                       value={formData.situationOther}
                       onChange={handleChange}
                       placeholder="Précisez votre situation..."
-                      className="rounded-lg"
+                      className="rounded-lg text-sm sm:text-base py-2 sm:py-3"
                     />
                   </div>
                 )}

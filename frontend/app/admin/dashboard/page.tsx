@@ -47,23 +47,30 @@ export default function AdminDashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      console.log('🔍 Récupération des données du dashboard...')
-      
       // Récupérer seulement les formulaires de contact
       const contactFormsData = await apiClient.getContactForms()
       
-      console.log('✅ Données des formulaires:', contactFormsData)
-
       const contactForms = contactFormsData as ContactFormSubmission[]
+      
+      // Calculer les statistiques pour les 7 derniers jours
+      const sevenDaysAgo = new Date()
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+      sevenDaysAgo.setHours(0, 0, 0, 0)
+      
+      const last7DaysForms = contactForms.filter(form => {
+        const formDate = new Date(form.createdAt)
+        return formDate >= sevenDaysAgo
+      })
 
       setStats({
         totalForms: contactForms.length,
-        newForms: contactForms.filter(form => form.status === 'NEW').length,
+        newForms: last7DaysForms.length,
         processedForms: contactForms.filter(form => form.status !== 'NEW').length,
         totalAdmins: 1
       })
+      console.log('SUCCESS: Dashboard data loaded')
     } catch (error) {
-      console.error('❌ Erreur lors de la récupération des données:', error)
+      console.error('ERROR: Failed to load dashboard data')
       // Valeurs par défaut en cas d'erreur
       setStats({
         totalForms: 0,
@@ -79,6 +86,10 @@ export default function AdminDashboard() {
   const handleLogout = () => {
     logout()
     router.push('/')
+  }
+
+  const handleLogoClick = () => {
+    router.push('/admin/dashboard')
   }
 
   const getPriorityColor = (priority: string) => {
@@ -117,7 +128,7 @@ export default function AdminDashboard() {
         <header className="bg-white border-b border-border sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Logo />
+              <Logo onClick={handleLogoClick} />
               <h1 className="text-2xl font-bold text-foreground">Tableau de Bord Admin</h1>
             </div>
             <Button variant="outline" onClick={handleLogout}>
@@ -149,12 +160,12 @@ export default function AdminDashboard() {
               onClick={() => router.push('/admin/forms')}
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Nouveaux Formulaires</CardTitle>
+                <CardTitle className="text-sm font-medium">Last 7 days</CardTitle>
                 <BarChart3 className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-destructive">{stats.newForms}</div>
-                <p className="text-xs text-muted-foreground">En attente de validation</p>
+                <p className="text-xs text-muted-foreground">Nouveaux formulaires</p>
               </CardContent>
             </Card>
           </div>

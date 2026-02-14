@@ -38,8 +38,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const parsedUser = JSON.parse(savedUser)
         setToken(savedToken)
         setUser(parsedUser)
+        console.log('SUCCESS: Session restored')
       } catch (error) {
-        console.error('Failed to parse saved user:', error)
+        console.error('ERROR: Failed to restore session')
         localStorage.removeItem('auth_token')
         localStorage.removeItem('auth_user')
       }
@@ -58,9 +59,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Save to localStorage
         localStorage.setItem('auth_token', response.token)
         localStorage.setItem('auth_user', JSON.stringify(response.user))
+        
+        console.log('SUCCESS: Login successful')
+      } else {
+        console.error('ERROR: Invalid server response')
+        throw new Error('Réponse serveur invalide')
       }
     } catch (error) {
-      console.error('Login failed:', error)
+      console.error('ERROR: Login failed')
+      // Nettoyer en cas d'erreur
+      setToken(null)
+      setUser(null)
+      localStorage.removeItem('auth_token')
+      localStorage.removeItem('auth_user')
       throw error
     }
   }
@@ -70,6 +81,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(null)
     localStorage.removeItem('auth_token')
     localStorage.removeItem('auth_user')
+    console.log('SUCCESS: Logged out')
   }
 
   const value: AuthContextType = {
