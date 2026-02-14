@@ -29,12 +29,14 @@ const problems = [
 
 export function ProblemsSection() {
   const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation()
+  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation()
   const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation()
+  const { ref: statementRef, isVisible: statementVisible } = useScrollAnimation()
 
   return (
     <section id="problems" className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 bg-background">
       <div className="max-w-6xl mx-auto">
-        <div ref={sectionRef} className={`text-center mb-8 sm:mb-12 md:mb-16 scroll-fade-in ${sectionVisible ? 'visible' : ''}`}>
+        <div ref={titleRef} className={`text-center mb-8 sm:mb-12 md:mb-16 scroll-fade-in ${titleVisible ? 'visible' : ''}`} style={{ transitionDelay: '100ms' }}>
           <div className="mb-4 sm:mb-6">
             <h1 className="font-heading font-bold text-lg sm:text-xl md:text-2xl text-primary/80 text-center mb-2 sm:mb-3 tracking-wider uppercase"> PROBLÈMES</h1>
             <h2 className="font-heading font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6 text-foreground px-2 sm:px-4">
@@ -52,13 +54,13 @@ export function ProblemsSection() {
             return (
               <Card 
                 key={index} 
-                className={`problem-card group p-4 sm:p-6 bg-white border border-border hover:border-destructive/30 hover:shadow-xl transition-all duration-300 hover:translate-y-[-4px] relative overflow-hidden ${cardsVisible ? 'visible' : ''}`}
+                className={`problem-card group p-4 sm:p-6 bg-white border border-border hover:border-primary/30 hover:shadow-xl transition-all duration-300 hover:translate-y-[-4px] relative overflow-hidden ${cardsVisible ? 'visible' : ''}`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-destructive/5 rounded-full blur-2xl transform translate-x-8 sm:translate-x-10 lg:translate-x-12 -translate-y-8 sm:-translate-y-10 lg:-translate-y-12 group-hover:scale-150 transition-transform duration-500" />
+                <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-primary/5 rounded-full blur-2xl transform translate-x-8 sm:translate-x-10 lg:translate-x-12 -translate-y-8 sm:-translate-y-10 lg:-translate-y-12 group-hover:scale-150 transition-transform duration-500" />
                 <div className="relative">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-lg bg-destructive/10 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-destructive" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-primary" />
                   </div>
                   <h3 className="font-heading font-semibold text-base sm:text-lg text-foreground mb-2 sm:mb-3 line-clamp-2 leading-tight">
                     {problem.title}
@@ -74,9 +76,9 @@ export function ProblemsSection() {
 
         {/* Statement card - same style as problem cards */}
         <Card 
-          ref={sectionRef}
-          className={`group p-6 sm:p-8 lg:p-12 bg-white border border-border hover:border-primary/30 hover:shadow-xl transition-all duration-300 hover:translate-y-[-4px] relative overflow-hidden scroll-fade-in ${sectionVisible ? 'visible' : ''}`}
-          style={{ transitionDelay: '400ms' }}
+          ref={statementRef}
+          className={`group p-6 sm:p-8 lg:p-12 bg-white border border-border hover:border-primary/30 hover:shadow-xl transition-all duration-300 hover:translate-y-[-4px] relative overflow-hidden scroll-fade-in ${statementVisible ? 'visible' : ''}`}
+          style={{ transitionDelay: '500ms' }}
         >
           {/* Background decoration - same style as cards */}
           <div className="absolute top-0 right-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-primary/5 rounded-full blur-2xl transform translate-x-10 sm:translate-x-12 lg:translate-x-16 -translate-y-10 sm:-translate-y-12 lg:-translate-y-16 group-hover:scale-150 transition-transform duration-500" />
