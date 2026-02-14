@@ -90,10 +90,10 @@ export function ContactForm() {
         building: {
           name: formData.residenceName,
           address: formData.address,
-          city: formData.address.split(',').pop()?.trim() || 'Paris',
+          city: formData.address.split(',').pop()?.trim() || 'Tunis',
           units: formData.apartments,
-          situation: formData.situation === 'autres' && formData.situationOther 
-            ? `Autres: ${formData.situationOther}` 
+          situation: formData.situation === 'autre' && formData.situationOther 
+            ? `Autre: ${formData.situationOther}` 
             : formData.situation,
           motif: formData.motif === 'autre' && formData.motifOther 
             ? `Autre: ${formData.motifOther}` 
@@ -134,9 +134,15 @@ export function ContactForm() {
           return
         }
         
-        // Validation du nombre d'appartements
-        if (!formData.apartments || parseInt(formData.apartments) <= 0) {
-          setError('Le nombre d\'appartements doit être un nombre positif')
+        // Validation du nombre d'appartements (permet 0 et plus)
+        if (!formData.apartments || isNaN(parseInt(formData.apartments))) {
+          setError('Le nombre d\'appartements doit être un nombre valide (0 ou plus)')
+          return
+        }
+        
+        const apartmentCount = parseInt(formData.apartments)
+        if (apartmentCount < 0) {
+          setError('Le nombre d\'appartements ne peut pas être négatif')
           return
         }
         
@@ -256,7 +262,7 @@ export function ContactForm() {
                   name="address"
                   value={formData.address}
                   onChange={handleChange}
-                  placeholder="Ex: 123 Rue de la Paix, Paris 16ème"
+                  placeholder="Ex: 123 Rue Habib Bourguiba, Tunis 1000"
                   className="rounded-lg text-sm sm:text-base py-2 sm:py-3"
                 />
               </div>
@@ -269,12 +275,12 @@ export function ContactForm() {
                   name="apartments"
                   value={formData.apartments}
                   onChange={handleChange}
-                  placeholder="Ex: 24 (uniquement des chiffres)"
+                  placeholder="Ex: 24 ou 35  (uniquement des chiffres)"
                   className="rounded-lg text-sm sm:text-base py-2 sm:py-3"
                   inputMode="numeric"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Entrez uniquement le nombre d'appartements
+                  Entrez le nombre d'appartements 
                 </p>
               </div>
               <div>
@@ -292,7 +298,7 @@ export function ContactForm() {
                     <option value="gestion">Déjà en gestion externe</option>
                     <option value="auto">Auto-gestion</option>
                     <option value="change">Changement de syndic</option>
-                    <option value="autres">Autres</option>
+                    <option value="autre">Autre</option>
                   </select>
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                     <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -439,7 +445,7 @@ export function ContactForm() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="06 12 34 56 78"
+                  placeholder="71 234 567 890"
                   className="rounded-lg text-sm sm:text-base py-2 sm:py-3"
                 />
               </div>
@@ -452,11 +458,11 @@ export function ContactForm() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="votre@email.com"
+                  placeholder="votre@email.tn"
                   className="rounded-lg text-sm sm:text-base py-2 sm:py-3"
                 />
                 <p className="text-xs text-muted-foreground mt-1">
-                  Format: nom@domaine.com
+                  Format: nom@domaine.tn
                 </p>
               </div>
             </div>

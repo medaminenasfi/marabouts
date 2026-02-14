@@ -31,31 +31,49 @@ export function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-50 w-full transition-all duration-200 ${
+        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-border'
-            : 'bg-white/80 backdrop-blur-sm'
+            ? 'bg-white/95 backdrop-blur-lg shadow-lg border-b border-border/50'
+            : 'bg-white/80 backdrop-blur-md'
         }`}
       >
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between" style={{ height: '72px' }}>
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 flex-shrink-0">
-            <Logo />
+          <Link href="/" className="flex items-center space-x-3 flex-shrink-0 group">
+            <div className="transform transition-all duration-300 group-hover:scale-105">
+              <Logo />
+            </div>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-            <SmoothScrollLink href="#services" className="text-foreground hover:text-primary transition-colors text-sm font-medium">
+          <div className="hidden lg:flex items-center space-x-8 xl:space-x-10">
+            <SmoothScrollLink 
+              href="#services" 
+              className="relative text-foreground hover:text-primary transition-all duration-300 text-sm font-medium group py-2"
+            >
               Services
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </SmoothScrollLink>
-            <SmoothScrollLink href="#solution" className="text-foreground hover:text-primary transition-colors text-sm font-medium">
-              Solution
+            <SmoothScrollLink 
+              href="#solution" 
+              className="relative text-foreground hover:text-primary transition-all duration-300 text-sm font-medium group py-2"
+            >
+              Transparence
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </SmoothScrollLink>
-            <SmoothScrollLink href="#for-who" className="text-foreground hover:text-primary transition-colors text-sm font-medium">
+            <SmoothScrollLink 
+              href="#for-who" 
+              className="relative text-foreground hover:text-primary transition-all duration-300 text-sm font-medium group py-2"
+            >
               Promoteurs
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </SmoothScrollLink>
-            <SmoothScrollLink href="#contact" className="text-foreground hover:text-primary transition-colors text-sm font-medium">
+            <SmoothScrollLink 
+              href="#contact" 
+              className="relative text-foreground hover:text-primary transition-all duration-300 text-sm font-medium group py-2"
+            >
               Contact
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </SmoothScrollLink>
           </div>
 
@@ -63,9 +81,9 @@ export function Header() {
           <div className="hidden lg:flex items-center">
             {/* CTA Button */}
             <SmoothScrollLink href="#contact">
-              <Button className="bg-primary hover:bg-primary-dark text-white font-medium rounded-lg px-4 xl:px-6 h-10 transition-all duration-200 hover:-translate-y-0.5">
-                <span className="hidden xl:inline">Demander un audit</span>
-                <span className="xl:hidden">Audit</span>
+              <Button className="bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl px-6 xl:px-8 h-12 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden">
+                <span className="relative z-10">Demander un audit</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Button>
             </SmoothScrollLink>
           </div>
@@ -75,7 +93,7 @@ export function Header() {
             {/* Hamburger Menu */}
             <button
               onClick={toggleMobileMenu}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-3 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:scale-105"
               aria-label="Menu"
             >
               {isMobileMenuOpen ? (
@@ -89,49 +107,61 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-border bg-white/95 backdrop-blur-md">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 space-y-1">
+          <div className="lg:hidden border-t border-border/50 bg-white/95 backdrop-blur-lg shadow-xl">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-2">
               {/* Mobile Navigation Links */}
-              <SmoothScrollLink 
-                href="#services" 
-                className="block py-3 px-4 text-foreground hover:text-primary hover:bg-gray-50 rounded-lg transition-colors text-base font-medium"
-                onClick={closeMobileMenu}
-              >
-                Services
-              </SmoothScrollLink>
-              <SmoothScrollLink 
-                href="#solution" 
-                className="block py-3 px-4 text-foreground hover:text-primary hover:bg-gray-50 rounded-lg transition-colors text-base font-medium"
-                onClick={closeMobileMenu}
-              >
-                Solution
-              </SmoothScrollLink>
-              <SmoothScrollLink 
-                href="#for-who" 
-                className="block py-3 px-4 text-foreground hover:text-primary hover:bg-gray-50 rounded-lg transition-colors text-base font-medium"
-                onClick={closeMobileMenu}
-              >
-                Promoteurs
-              </SmoothScrollLink>
-              <SmoothScrollLink 
-                href="#contact" 
-                className="block py-3 px-4 text-foreground hover:text-primary hover:bg-gray-50 rounded-lg transition-colors text-base font-medium"
-                onClick={closeMobileMenu}
-              >
-                Contact
-              </SmoothScrollLink>
-              
-              {/* Mobile CTA Button */}
-              <div className="pt-4 border-t border-border">
-                <SmoothScrollLink href="#contact" onClick={closeMobileMenu}>
-                  <Button className="w-full bg-primary hover:bg-primary-dark text-white font-medium rounded-lg h-12 transition-all duration-200 hover:-translate-y-0.5">
-                    Demander un audit
-                  </Button>
+              <div className="space-y-1">
+                <SmoothScrollLink 
+                  href="#services" 
+                  className="block py-4 px-6 text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all duration-300 text-base font-medium group"
+                  onClick={closeMobileMenu}
+                >
+                  <div className="flex items-center justify-between">
+                    <span>Services</span>
+                    <div className="w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-4"></div>
+                  </div>
+                </SmoothScrollLink>
+                <SmoothScrollLink 
+                  href="#solution" 
+                  className="block py-4 px-6 text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all duration-300 text-base font-medium group"
+                  onClick={closeMobileMenu}
+                >
+                  <div className="flex items-center justify-between">
+                    <span>Transparence</span>
+                    <div className="w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-4"></div>
+                  </div>
+                </SmoothScrollLink>
+                <SmoothScrollLink 
+                  href="#for-who" 
+                  className="block py-4 px-6 text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all duration-300 text-base font-medium group"
+                  onClick={closeMobileMenu}
+                >
+                  <div className="flex items-center justify-between">
+                    <span>Promoteurs</span>
+                    <div className="w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-4"></div>
+                  </div>
+                </SmoothScrollLink>
+                <SmoothScrollLink 
+                  href="#contact" 
+                  className="block py-4 px-6 text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all duration-300 text-base font-medium group"
+                  onClick={closeMobileMenu}
+                >
+                  <div className="flex items-center justify-between">
+                    <span>Contact</span>
+                    <div className="w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-4"></div>
+                  </div>
                 </SmoothScrollLink>
               </div>
 
-              {/* Mobile Contact Info */}
-          
+              {/* Mobile CTA Button */}
+              <div className="pt-6 px-6">
+                <SmoothScrollLink href="#contact" onClick={closeMobileMenu}>
+                  <Button className="w-full bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl h-14 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl group relative overflow-hidden">
+                    <span className="relative z-10">Demander un audit</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </Button>
+                </SmoothScrollLink>
+              </div>
             </div>
           </div>
         )}
@@ -140,7 +170,7 @@ export function Header() {
       {/* Overlay for mobile menu */}
       {isMobileMenuOpen && (
         <div 
-          className="lg:hidden fixed inset-0 bg-black/50 z-40" 
+          className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300" 
           onClick={closeMobileMenu}
         />
       )}
