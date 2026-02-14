@@ -69,9 +69,32 @@ const config: Config = {
         },
       },
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        xs: '0.5rem',    // 8px
+        sm: '0.75rem',   // 12px
+        md: '1rem',      // 16px
+        lg: '1.25rem',   // 20px
+        xl: '1.5rem',    // 24px
+        '2xl': '2rem',   // 32px
+        '3xl': '2.5rem', // 40px
+        '4xl': '3rem',   // 48px
+        full: '9999px',
+      },
+      spacing: {
+        'xs': '0.5rem',    // 8px
+        'sm': '1rem',      // 16px
+        'md': '1.5rem',    // 24px
+        'lg': '2.5rem',    // 40px
+        'xl': '4rem',      // 64px
+        '2xl': '6rem',     // 96px
+      },
+      boxShadow: {
+        'soft': '0 10px 30px rgba(2,6,23,.08)',
+        'hover': '0 16px 40px rgba(2,6,23,.12)',
+        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+      },
+      backgroundImage: {
+        'gradient-premium': 'linear-gradient(135deg, rgba(11,93,67,.08), rgba(215,180,106,.10))',
+        'overlay-premium': 'linear-gradient(180deg, rgba(248,250,252,.92), rgba(248,250,252,.98))',
       },
       keyframes: {
         'accordion-down': {

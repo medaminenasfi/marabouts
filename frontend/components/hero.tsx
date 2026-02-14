@@ -28,7 +28,7 @@ export function Hero() {
       <div className="absolute inset-0 overflow-hidden">
         <div className="relative w-full h-full">
           <img 
-            src="/assests/hero-building.jpg"
+            src="/assests/3.jpg"
             alt="Background building"
             className="w-full h-full object-cover"
             onError={(e) => {
@@ -42,7 +42,8 @@ export function Hero() {
             }}
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-br from-white/92 via-white/95 to-primary/8" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
         <div className="absolute top-1/4 right-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-primary/8 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 left-1/4 w-48 h-48 sm:w-80 sm:h-80 bg-accent/10 rounded-full blur-3xl" />
       </div>
@@ -50,21 +51,23 @@ export function Hero() {
       <div ref={heroRef} className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
         {/* Badge */}
         <div ref={badgeRef} className={`flex justify-center mb-4 sm:mb-6 scroll-fade-in ${badgeVisible ? 'visible' : ''}`} style={{ transitionDelay: '100ms' }}>
-          <Badge variant="outline" className="bg-accent/15 text-accent-foreground border-accent/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm">
-            <span className="inline-block w-1.5 h-1.5 sm:w-2 sm:h-2 bg-accent rounded-full mr-1.5 sm:mr-2" />
-            <span className="hidden sm:inline">Supervision terrain 7j/7 • Gestion structurée • Transparence totale</span>
-            <span className="sm:hidden">Supervision 7j/7 • Gestion • Transparence</span>
-          </Badge>
+          <div className="inline-flex items-center bg-primary/20 backdrop-blur-sm border border-primary/40 px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium">
+            <span className="inline-block w-2 h-2 sm:w-2.5 sm:h-2.5 bg-primary rounded-full mr-2 sm:mr-2.5 animate-pulse" />
+            <span className="text-white font-medium">
+              <span className="hidden sm:inline">Supervision terrain 7j/7 • Gestion structurée • Transparence totale</span>
+              <span className="sm:hidden">Supervision 7j/7 • Gestion • Transparence</span>
+            </span>
+          </div>
         </div>
 
         {/* Heading */}
         <div ref={contentRef} className={`scroll-fade-in ${contentVisible ? 'visible' : ''}`} style={{ transitionDelay: '200ms' }}>
-          <h1 className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight tracking-tight text-foreground mb-4 sm:mb-6 text-balance px-2">
+          <h1 className="font-heading font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight tracking-tight text-white mb-4 sm:mb-6 text-balance px-2 drop-shadow-lg">
             La gestion de syndic professionnelle, transparente et réactive
           </h1>
 
           {/* Subheading */}
-          <p className="text-sm sm:text-base lg:text-lg text-muted-foreground mb-6 sm:mb-8 max-w-3xl mx-auto text-balance leading-relaxed px-4">
+          <p className="text-sm sm:text-base lg:text-lg text-white/90 mb-6 sm:mb-8 max-w-3xl mx-auto text-balance leading-relaxed px-4 drop-shadow-md">
             Marabouts prend en charge l'intégralité de votre copropriété : gestion administrative, maintenance, recouvrement et organisation terrain — avec un système digital fiable.
           </p>
         </div>
@@ -73,15 +76,15 @@ export function Hero() {
         <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-8 sm:mb-10 max-w-2xl mx-auto scroll-fade-in ${contentVisible ? 'visible' : ''}`} style={{ transitionDelay: '300ms' }}>
           <div className="flex items-start space-x-2 sm:space-x-3">
             <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0 mt-0.5 sm:mt-1" />
-            <span className="text-xs sm:text-sm text-foreground">Superviseurs terrain présents 7j/7</span>
+            <span className="text-xs sm:text-sm text-white/95 font-medium">Superviseurs terrain présents 7j/7</span>
           </div>
           <div className="flex items-start space-x-2 sm:space-x-3">
             <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0 mt-0.5 sm:mt-1" />
-            <span className="text-xs sm:text-sm text-foreground">Maintenance suivie et contrôlée</span>
+            <span className="text-xs sm:text-sm text-white/95 font-medium">Maintenance suivie et contrôlée</span>
           </div>
           <div className="flex items-start space-x-2 sm:space-x-3 sm:col-span-2 lg:col-span-1">
             <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0 mt-0.5 sm:mt-1" />
-            <span className="text-xs sm:text-sm text-foreground">Reporting clair et traçabilité complète</span>
+            <span className="text-xs sm:text-sm text-white/95 font-medium">Reporting clair et traçabilité complète</span>
           </div>
         </div>
 
@@ -95,10 +98,10 @@ export function Hero() {
           <Button 
             size="lg" 
             variant="outline" 
-            className="rounded-lg font-semibold px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base bg-transparent transition-all duration-200 hover:-translate-y-0.5 w-full sm:w-auto"
+            className="rounded-lg font-semibold px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base bg-transparent transition-all text-white duration-200 hover:-translate-y-0.5 w-full sm:w-auto"
             onClick={openCalendly}
           >
-            <span className="hidden sm:inline">Planifier un rendez-vous</span>
+            <span className="hidden sm:inline  text-white">Planifier un rendez-vous</span>
             <span className="sm:hidden">Rendez-vous</span>
           </Button>
         </div>

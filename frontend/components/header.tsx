@@ -37,7 +37,7 @@ export function Header() {
             : 'bg-white/80 backdrop-blur-md'
         }`}
       >
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-[72px] flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 flex-shrink-0 group">
             <div className="transform transition-all duration-300 group-hover:scale-105">

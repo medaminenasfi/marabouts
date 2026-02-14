@@ -29,11 +29,21 @@
   --error: 0 84% 60%;
   
   /* Layout */
-  --radius: 0.75rem;
+  --radius: 0.75rem; /* 12px */
 }
 
 body {
   font-family: var(--font-inter);
+}
+
+/* Primary hover state */
+.bg-primary\/6 {
+  background-color: rgba(11, 93, 67, 0.06);
+}
+
+/* Focus ring for primary */
+.focus-visible\:ring-primary\/18 {
+  --tw-ring-color: rgba(11, 93, 67, 0.18);
 }
 
 @layer utilities {
@@ -324,5 +334,42 @@ body {
   .residence-card.visible {
     opacity: 1;
     transform: scale(1);
+  }
+  
+  /* Badge styles */
+  .badge-accent {
+    background-color: rgba(215, 180, 106, 0.15);
+    color: rgba(184, 145, 63, 1);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    font-weight: 500;
+  }
+  
+  /* Card styles */
+  .card-premium {
+    background-color: white;
+    border: 1px solid hsl(var(--line));
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  }
+  
+  .card-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(2,6,23,.12);
+  }
+  
+  /* Form input styles */
+  .input-premium {
+    height: 3rem;
+    border-radius: 0.75rem;
+    border: 1px solid hsl(var(--line));
+    transition: all 200ms ease-out;
+  }
+  
+  .input-premium:focus {
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 4px rgba(11,93,67,.18);
   }
 }
