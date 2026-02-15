@@ -24,7 +24,7 @@ export function LogoImageOnly({ onClick }: LogoImageOnlyProps) {
     >
       <div className="relative">
         <img
-          src="/assests/marabouts-logo.webp"
+          src="/assets/marabouts-logo.webp"
           alt="Marabouts"
           width={120}
           height={120}

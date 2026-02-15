@@ -10,31 +10,31 @@ const residences = [
     name: 'Résidence Les Jardins',
     location: 'Tunis, El Menzah',
     units: 24,
-    image: '/assests/residence-1.jpg',
+    image: '/assets/residence-1.jpg',
   },
   {
     name: 'Parc du Lac',
     location: 'Tunis, Les Berges du Lac',
     units: 32,
-    image: '/assests/residence-2.jpg',
+    image: '/assets/residence-2.jpg',
   },
   {
     name: 'Les Palmiers',
     location: 'Sousse, Centre Ville',
     units: 18,
-    image: '/assests/residence-3.jpg',
+    image: '/assets/residence-3.jpg',
   },
   {
     name: 'Résidence Carthage',
     location: 'Carthage, Byrsa',
     units: 28,
-    image: '/assests/4.jpg',
+    image: '/assets/4.jpg',
   },
   {
     name: 'El Manar Premium',
     location: 'Tunis, El Manar',
     units: 22,
-    image: '/assests/5.jpg',
+    image: '/assets/5.jpg',
   },
 ]
 

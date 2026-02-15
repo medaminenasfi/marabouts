@@ -27,7 +27,7 @@ export function Logo({
     >
       <div className="relative">
         <img 
-          src="/assests/marabouts-logo.webp"
+          src="/assets/marabouts-logo.webp"
           alt="Marabouts"
           className="h-10 w-auto"
           onError={(e) => {
