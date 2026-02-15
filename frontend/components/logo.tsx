@@ -44,7 +44,7 @@ export function Logo({
       <span className={`font-heading font-bold text-xl hidden sm:inline ${
         variant === 'dark' ? 'text-background' : 'text-foreground'
       }`}>
-        Marabouts
+        MARABOUTS
       </span>
     </div>
   )

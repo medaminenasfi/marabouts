@@ -49,10 +49,7 @@ export default function AdminLoginPage() {
       <div className="absolute bottom-1/4 left-1/4 w-56 h-56 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-72 lg:h-72 xl:w-80 xl:h-80 bg-accent/10 rounded-full blur-2xl sm:blur-3xl" />
       
       {/* Overlay pour fermer en cliquant à l'extérieur - mobile uniquement */}
-      <div 
-        className="fixed inset-0 bg-black/20 backdrop-blur-sm z-0 sm:hidden" 
-        onClick={handleClose}
-      />
+      {/* Supprimé - pas nécessaire pour une page de login */}
       
       <div className="relative w-full max-w-sm sm:max-w-md px-3 sm:px-4 md:px-6 lg:px-8 z-10">
         {/* Espace Admin - responsive */}
@@ -69,17 +66,10 @@ export default function AdminLoginPage() {
         </div>
 
         <Card className="shadow-xl border-border/50 backdrop-blur-sm bg-white/95 relative">
-          {/* Bouton de fermeture - visible sur mobile */}
-          <button
-            onClick={handleClose}
-            className="absolute top-2 right-2 sm:top-3 sm:right-3 z-10 p-1.5 sm:p-2 rounded-full bg-background/80 hover:bg-background border border-border/50 hover:border-border transition-all duration-200 sm:hidden"
-            aria-label="Fermer"
-          >
-            <X className="w-4 h-4 sm:w-5 sm:h-5 text-foreground" />
-          </button>
+          {/* Pas de bouton de fermeture - page de login standard */}
           
           <CardHeader className="space-y-1 pb-3 sm:pb-4 px-4 sm:px-6 pt-4 sm:pt-6">
-            <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-center leading-tight pr-8 sm:pr-0">
+            <CardTitle className="text-lg sm:text-xl md:text-2xl font-heading text-center leading-tight">
               Connexion Sécurisée
             </CardTitle>
             <CardDescription className="text-center text-xs sm:text-sm leading-relaxed">

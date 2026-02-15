@@ -57,8 +57,7 @@ export function Footer() {
                   href="mailto:contact@marabouts.fr" 
                   className="text-xs sm:text-sm text-background/70 hover:text-background transition-all duration-300 group-hover:translate-x-1 inline-block"
                 >
-                  contact@marabouts.tn
-                </a>
+Commercial@marabouts.tn                </a>
               </div>
               <div className="flex items-center justify-center md:justify-start gap-2 sm:gap-3 group">
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">

@@ -54,21 +54,26 @@ export function ProblemsSection() {
             return (
               <Card 
                 key={index} 
-                className={`problem-card group p-4 sm:p-6 bg-white border border-border hover:border-primary/30 hover:shadow-xl transition-all duration-300 hover:translate-y-[-4px] relative overflow-hidden ${cardsVisible ? 'visible' : ''}`}
+                className={`problem-card group p-6 sm:p-8 bg-gradient-to-b from-white to-emerald-50/30 border border-emerald-100 rounded-[18px] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden ${cardsVisible ? 'visible' : ''}`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-primary/5 rounded-full blur-2xl transform translate-x-8 sm:translate-x-10 lg:translate-x-12 -translate-y-8 sm:-translate-y-10 lg:-translate-y-12 group-hover:scale-150 transition-transform duration-500" />
-                <div className="relative">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-primary" />
+                <div className="relative z-10">
+                  {/* Icon with exact style */}
+                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 shadow-inner group-hover:scale-105 transition-transform duration-300">
+                    <Icon className="w-7 h-7 text-emerald-700" />
                   </div>
-                  <h3 className="font-heading font-semibold text-base sm:text-lg text-foreground mb-2 sm:mb-3 line-clamp-2 leading-tight">
+                  
+                  {/* Content with exact typography */}
+                  <h3 className="mb-2 text-lg font-semibold text-slate-900 leading-tight group-hover:text-emerald-700 transition-colors duration-300">
                     {problem.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  <p className="text-slate-600 leading-relaxed text-sm group-hover:text-slate-700 transition-colors duration-300">
                     {problem.description}
                   </p>
                 </div>
+                
+                {/* Subtle hover effect */}
+                <div className="absolute inset-0 bg-gradient-to-t from-emerald-50/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-[18px]" />
               </Card>
             )
           })}
