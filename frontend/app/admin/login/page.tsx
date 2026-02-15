@@ -28,11 +28,14 @@ export default function AdminLoginPage() {
     setError('')
     setIsLoading(true)
 
+    console.log('[LOGIN] Tentative de connexion pour:', email)
 
     try {
       await login(email, password)
+      console.log('[LOGIN] Connexion réussie, redirection vers le tableau de bord')
       router.push('/admin/dashboard')
     } catch (err: any) {
+      console.error('[LOGIN] Échec de la connexion:', err.message)
       setError(err.message || 'Identifiants incorrects. Veuillez réessayer.')
     } finally {
       setIsLoading(false)
@@ -90,7 +93,7 @@ export default function AdminLoginPage() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="admin@marabouts.fr"
+                  placeholder="admin@marabouts.tn"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required

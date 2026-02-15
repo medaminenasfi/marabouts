@@ -38,9 +38,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const parsedUser = JSON.parse(savedUser)
         setToken(savedToken)
         setUser(parsedUser)
-        console.log('SUCCESS: Session restored')
+        console.log('SUCCÈS: Session restaurée')
       } catch (error) {
-        console.error('ERROR: Failed to restore session')
+        console.error('ERREUR: Échec de la restauration de session')
         localStorage.removeItem('auth_token')
         localStorage.removeItem('auth_user')
       }
@@ -60,13 +60,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         localStorage.setItem('auth_token', response.token)
         localStorage.setItem('auth_user', JSON.stringify(response.user))
         
-        console.log('SUCCESS: Login successful')
+        console.log('SUCCÈS: Connexion réussie')
       } else {
-        console.error('ERROR: Invalid server response')
+        console.error('ERREUR: Réponse serveur invalide')
         throw new Error('Réponse serveur invalide')
       }
     } catch (error) {
-      console.error('ERROR: Login failed')
+      console.error('ERREUR: Échec de connexion')
       // Nettoyer en cas d'erreur
       setToken(null)
       setUser(null)
@@ -81,7 +81,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setToken(null)
     localStorage.removeItem('auth_token')
     localStorage.removeItem('auth_user')
-    console.log('SUCCESS: Logged out')
+    console.log('SUCCÈS: Déconnexion réussie')
   }
 
   const value: AuthContextType = {

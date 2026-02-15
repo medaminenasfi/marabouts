@@ -68,9 +68,9 @@ export default function AdminDashboard() {
         processedForms: contactForms.filter(form => form.status !== 'NEW').length,
         totalAdmins: 1
       })
-      console.log('SUCCESS: Dashboard data loaded')
+      console.log('SUCCÈS: Données dashboard chargées')
     } catch (error) {
-      console.error('ERROR: Failed to load dashboard data')
+      console.error('ERREUR: Échec du chargement des données dashboard')
       // Valeurs par défaut en cas d'erreur
       setStats({
         totalForms: 0,

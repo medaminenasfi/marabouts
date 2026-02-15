@@ -91,7 +91,7 @@ export default function AdminFormsPage() {
       const formsData = await apiClient.getContactForms()
       setForms(formsData as ContactFormSubmission[])
     } catch (error) {
-      console.error('❌ Erreur lors de la récupération:', error)
+      console.error(' Erreur lors de la récupération des formulaires:', error)
     } finally {
       setLoading(false)
     }

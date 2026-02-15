@@ -100,13 +100,13 @@ app.post('/api/auth/login', async (req: express.Request, res: express.Response) 
     });
 
     if (!user) {
-      res.status(401).json({ error: 'Invalid credentials' });
+      res.status(401).json({ error: 'Identifiants invalides' });
       return;
     }
 
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
-      res.status(401).json({ error: 'Invalid credentials' });
+      res.status(401).json({ error: 'Identifiants invalides' });
       return;
     }
 

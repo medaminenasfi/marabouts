@@ -37,14 +37,14 @@ class ApiClient {
       
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
-        console.error('ERROR: API request failed')
-        throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
+        console.error('ERREUR: Échec de la requête API')
+        throw new Error(errorData.error || `Erreur HTTP! statut: ${response.status}`)
       }
 
       const data = await response.json()
       return data
     } catch (error) {
-      console.error('ERROR: Network request failed')
+      console.error('ERREUR: Échec de la requête réseau')
       throw error
     }
   }
