@@ -28,14 +28,12 @@ export default function AdminLoginPage() {
     setError('')
     setIsLoading(true)
 
-    console.log('[LOGIN] Tentative de connexion pour:', email)
-
     try {
       await login(email, password)
       console.log('[LOGIN] Connexion réussie, redirection vers le tableau de bord')
       router.push('/admin/dashboard')
     } catch (err: any) {
-      console.error('[LOGIN] Échec de la connexion:', err.message)
+      // Pas de log console pour les erreurs d'authentification incorrectes
       setError(err.message || 'Identifiants incorrects. Veuillez réessayer.')
     } finally {
       setIsLoading(false)

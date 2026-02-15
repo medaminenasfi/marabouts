@@ -62,11 +62,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         
         console.log('SUCCÈS: Connexion réussie')
       } else {
-        console.error('ERREUR: Réponse serveur invalide')
+        // Pas de log console pour les réponses serveur invalides
         throw new Error('Réponse serveur invalide')
       }
     } catch (error) {
-      console.error('ERREUR: Échec de connexion')
+      // Pas de log console pour les échecs de connexion
       // Nettoyer en cas d'erreur
       setToken(null)
       setUser(null)
