@@ -38,14 +38,14 @@ export function CtaSection() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
-                <SmoothScrollLink href="#contact">
+                <Link href="/demandedevis">
                   <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-lg font-semibold px-6 sm:px-8 py-3 sm:py-4 md:py-6 text-sm sm:text-base md:text-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5 group w-full sm:w-auto">
                     <span className="flex items-center justify-center">
                       Demander un devis
                       <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
                     </span>
                   </Button>
-                </SmoothScrollLink>
+                </Link>
                 <Button 
                   size="lg" 
                   variant="outline" 

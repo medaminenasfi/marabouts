@@ -116,11 +116,11 @@ export function SolutionSection() {
         </div>
 
         <div className="flex justify-center px-4">
-          <SmoothScrollLink href="#contact">
+          <Link href="/demandedevis">
             <Button size="lg" className="bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary text-white rounded-lg font-semibold px-6 sm:px-8 lg:px-10 py-3 sm:py-4 lg:py-6 text-sm sm:text-base lg:text-lg shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-0.5 w-full sm:w-auto">
-              Demander un audit
+              Demander un devis
             </Button>
-          </SmoothScrollLink>
+          </Link>
         </div>
       </div>
     </section>

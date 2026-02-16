@@ -47,12 +47,11 @@ export default function AdminDashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      // Récupérer seulement les formulaires de contact
+      console.log('Tentative de récupération des données dashboard...')
       const contactFormsData = await apiClient.getContactForms()
       
       const contactForms = contactFormsData as ContactFormSubmission[]
       
-      // Calculer les statistiques pour les 7 derniers jours
       const sevenDaysAgo = new Date()
       sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
       sevenDaysAgo.setHours(0, 0, 0, 0)
@@ -70,8 +69,7 @@ export default function AdminDashboard() {
       })
       console.log('SUCCÈS: Données dashboard chargées')
     } catch (error) {
-      console.error('ERREUR: Échec du chargement des données dashboard')
-      // Valeurs par défaut en cas d'erreur
+      console.error('ERREUR: Échec du chargement des données dashboard', error)
       setStats({
         totalForms: 0,
         newForms: 0,

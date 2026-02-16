@@ -15,7 +15,6 @@ export function Logo({
     if (onClick) {
       onClick()
     } else {
-      // Par défaut, redirige vers la page d'accueil
       router.push('/')
     }
   }

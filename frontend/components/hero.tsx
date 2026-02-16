@@ -90,11 +90,11 @@ export function Hero() {
 
         {/* CTAs */}
         <div ref={buttonsRef} className={`flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center scroll-fade-in ${buttonsVisible ? 'visible' : ''}`} style={{ transitionDelay: '400ms' }}>
-          <SmoothScrollLink href="#contact">
+          <Link href="/demandedevis">
             <Button size="lg" className="bg-primary hover:bg-primary-dark text-white rounded-lg font-semibold px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base transition-all duration-200 hover:-translate-y-0.5 w-full sm:w-auto">
               Demander un devis
             </Button>
-          </SmoothScrollLink>
+          </Link>
           <Button 
             size="lg" 
             variant="outline" 
