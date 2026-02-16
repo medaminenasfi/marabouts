@@ -17,11 +17,10 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Marabouts - Gestion de Syndic Professionnelle',
+  title: 'Marabouts - Gestion de Syndic Professionnelle | Demande de devis',
   description: 'Supervision terrain 7j/7 • Gestion structurée • Transparence totale',
-  generator: 'v0.app',
   icons: {
-    icon: '/assests/marabouts-logo.webp',
+    icon: '/assets/marabouts-logo.webp',
   },
 }
 
