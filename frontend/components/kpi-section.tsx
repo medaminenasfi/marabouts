@@ -11,7 +11,7 @@ export function KpiSection() {
   const kpis = [
     { value: 15, label: 'Résidences gérées', suffix: '' },
     { value: 152, label: 'Tickets de maintenance traités', suffix: '' },
-    { value: 36, label: 'Taux de recouvrement', suffix: '%' },
+    { value: 77, label: 'Taux de recouvrement', suffix: '%' },
   ]
 
   useEffect(() => {
