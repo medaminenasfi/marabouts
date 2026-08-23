@@ -1,0 +1,11 @@
+# =============================================================================
+# Marabouts – Local dev override (optional)
+# =============================================================================
+# Exposes Postgres on host port 5436 (avoids conflict if you have Postgres on 5432)
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+# =============================================================================
+
+services:
+  postgres:
+    ports:
+      - "${POSTGRES_HOST_PORT:-5436}:5432"

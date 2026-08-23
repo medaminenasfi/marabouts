@@ -1,0 +1,6 @@
+.env
+.env.local
+.env.*.local
+
+# Production secrets live in docker-compose.prod.yml (edit on VPS only)
+docker-compose.prod.yml

@@ -1,0 +1,107 @@
+# =============================================================================
+# Marabouts – Docker Compose (local dev & pre-production testing)
+# =============================================================================
+# Usage:
+#   1. Copy .env.example → .env and adjust secrets
+#   2. docker compose up --build -d
+#   3. See README / chat guide for testing steps
+# =============================================================================
+
+services:
+  # ── PostgreSQL ─────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: marabouts-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-marabouts}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-marabouts_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-marabouts_db}
+    # Internal only – not exposed on host (avoids conflict with other Postgres on VPS).
+    # pgAdmin & backend connect via Docker network hostname "postgres".
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-marabouts} -d ${POSTGRES_DB:-marabouts_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - marabouts-network
+
+  # ── pgAdmin (database GUI) ─────────────────────────────────────────────────
+  pgadmin:
+    image: dpage/pgadmin4:8
+    container_name: marabouts-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@marabouts.local}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin123}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - marabouts-network
+
+  # ── Backend API (Express + Prisma) ─────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: marabouts-backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-marabouts}:${POSTGRES_PASSWORD:-marabouts_secret}@postgres:5432/${POSTGRES_DB:-marabouts_db}
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER:-marabouts}
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production-use-a-long-random-string}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      PORT: 8000
+      NODE_ENV: production
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:6001}
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - marabouts-network
+
+  # ── Frontend (Next.js) ─────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+        NEXT_PUBLIC_CALENDLY_URL: ${NEXT_PUBLIC_CALENDLY_URL:-}
+    container_name: marabouts-frontend
+    restart: unless-stopped
+    environment:
+      PORT: 6001
+      HOSTNAME: 0.0.0.0
+    ports:
+      - "${FRONTEND_PORT:-6001}:6001"
+    depends_on:
+      - backend
+    networks:
+      - marabouts-network
+
+volumes:
+  postgres_data:
+    name: marabouts_postgres_data
+  pgadmin_data:
+    name: marabouts_pgadmin_data
+
+networks:
+  marabouts-network:
+    name: marabouts-network
+    driver: bridge
