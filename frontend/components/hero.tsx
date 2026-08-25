@@ -28,7 +28,7 @@ export function Hero() {
       <div className="absolute inset-0 overflow-hidden">
         <div className="relative w-full h-full">
           <img 
-            src="/assets/3.jpg"
+            src="/assets/pexels-lucasdc-34029754.jpg"
             alt="Background building"
             className="w-full h-full object-cover"
             onError={(e) => {

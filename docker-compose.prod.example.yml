@@ -68,7 +68,7 @@ services:
       dockerfile: Dockerfile
       args:
         NEXT_PUBLIC_API_URL: http://37.187.39.209:8000
-        NEXT_PUBLIC_CALENDLY_URL: https://calendly.com/manager-clubrendementplus/rendez-vous
+        NEXT_PUBLIC_CALENDLY_URL: https://calendly.com/maraboutssyndic/30min
     environment:
       PORT: 6001
       HOSTNAME: 0.0.0.0
