@@ -42,22 +42,34 @@ export function Footer() {
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
                   <Phone className="w-4 h-4 text-primary" />
                 </div>
-                <a 
-                  href="tel:+33123456789" 
+                <a
+                  href="tel:+21652768999"
                   className="text-xs sm:text-sm text-background/70 hover:text-background transition-all duration-300 group-hover:translate-x-1 inline-block"
                 >
-                  +216 00 000 000
+                  +216 52 768 999
+                </a>
+              </div>
+              <div className="flex items-center justify-center md:justify-start gap-2 sm:gap-3 group">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
+                  <Phone className="w-4 h-4 text-primary" />
+                </div>
+                <a
+                  href="tel:+21631416406"
+                  className="text-xs sm:text-sm text-background/70 hover:text-background transition-all duration-300 group-hover:translate-x-1 inline-block"
+                >
+                  +216 31 416 406
                 </a>
               </div>
               <div className="flex items-center justify-center md:justify-start gap-2 sm:gap-3 group">
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
                   <Mail className="w-4 h-4 text-primary" />
                 </div>
-                <a 
-                  href="mailto:contact@marabouts.fr" 
+                <a
+                  href="mailto:commercial@maraboutsyndic.tn"
                   className="text-xs sm:text-sm text-background/70 hover:text-background transition-all duration-300 group-hover:translate-x-1 inline-block"
                 >
-Commercial@marabouts.tn                </a>
+                  commercial@maraboutsyndic.tn
+                </a>
               </div>
               <div className="flex items-center justify-center md:justify-start gap-2 sm:gap-3 group">
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
